@@ -53,6 +53,14 @@
       "linter": "eslint",
       "style": "scss",
       "unitTestRunner": "vitest"
+    },
+    "@nx/angular:component": {
+      "style": "scss",
+      "standalone": true,
+      "inlineTemplate": true,
+      "inlineStyle": true,
+      "changeDetection": "OnPush",
+      "skipTests": true
     }
   },
   "defaultProject": "beta-website"
