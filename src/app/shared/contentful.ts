@@ -16,7 +16,7 @@ export enum IContentfulEnvs {
 
 export type IContentfulEntry<
   T extends FieldsType,
-  ID extends string = string
+  ID extends string = string,
 > = Entry<EntrySkeletonType<T, ID>, 'WITHOUT_LINK_RESOLUTION', string>;
 type ExtractType<T extends FieldsType> = IContentfulEntry<T>['fields'];
 
