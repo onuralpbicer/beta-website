@@ -24,12 +24,21 @@ import { MatButton } from '@angular/material/button';
         alt="logo"
       />
       }
+
+      <div class="test">test</div>
     </mat-toolbar>
 
     <button mat-flat-button>Test button</button>
   `,
   styles: [
     `
+      @use '@angular/material' as mat;
+      @use 'theme' as theme;
+
+      .test {
+        color: mat.get-theme-color(theme.$theme, primary);
+      }
+
       img {
         height: 36px;
         width: unset;
