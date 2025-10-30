@@ -8,12 +8,23 @@ import { CONTENTFUL_CLIENT } from './shared/contentful.client';
 import { IAppHeaderFields, IContentfulEntries } from './shared/contentful';
 import { EntrySkeletonType } from 'contentful';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NgOptimizedImage } from '@angular/common';
-import { MatButton } from '@angular/material/button';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { HeaderTab } from './header-tab';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-header',
-  imports: [MatToolbarModule, NgOptimizedImage, MatButton],
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    NgOptimizedImage,
+    MatButtonModule,
+    MatIconModule,
+    HeaderTab,
+    MatInputModule,
+  ],
   template: `
     <mat-toolbar>
       @if (logo.hasValue()) {
@@ -25,7 +36,15 @@ import { MatButton } from '@angular/material/button';
       />
       }
 
-      <div class="test">test</div>
+      <nav aria-label="Header tabs">
+        @for (link of header.value()?.fields.headerLinks; track link.sys.id) {
+        <app-header-tab [link]="link.sys.id" />
+        }
+      </nav>
+
+      <button mat-icon-button class="menu-button">
+        <mat-icon>menu</mat-icon>
+      </button>
     </mat-toolbar>
 
     <button mat-flat-button>Test button</button>
@@ -35,8 +54,39 @@ import { MatButton } from '@angular/material/button';
       @use '@angular/material' as mat;
       @use 'theme' as theme;
 
-      .test {
-        color: mat.get-theme-color(theme.$theme, primary);
+      :host {
+        @media (min-width: 599px) {
+          mat-toolbar {
+            justify-content: flex-start;
+          }
+
+          .menu-button {
+            display: none;
+          }
+
+          nav {
+            display: flex;
+          }
+        }
+      }
+
+      nav {
+        display: none;
+        align-items: center;
+      }
+
+      mat-toolbar {
+        justify-content: space-between;
+        border-bottom: 1px solid mat.get-theme-color(theme.$theme, surface-dim);
+
+        @include mat.toolbar-overrides(
+          (
+            container-background-color:
+              mat.get-theme-color(theme.$theme, surface),
+            mobile-height: 48px,
+            standard-height: 64px,
+          )
+        );
       }
 
       img {

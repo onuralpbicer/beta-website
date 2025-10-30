@@ -41,7 +41,3 @@ html {
   @include mat.theme(theme.$themeObj);
 }
 
-:root {
-  --mat-toolbar-mobile-height: 48px;
-  --mat-toolbar-standard-height: 64px;
-}
