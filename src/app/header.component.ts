@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { IHeaderInfo } from './shared/loader';
 import { RouterModule } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     MatInputModule,
     RouterModule,
+    MatMenuModule,
   ],
   template: `
     <mat-toolbar>
@@ -27,9 +29,14 @@ import { RouterModule } from '@angular/router';
         }
       </nav>
 
-      <button mat-icon-button class="menu-button">
+      <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
       </button>
+      <mat-menu #menu="matMenu">
+        @for (link of header().headerLinks; track link.url) {
+        <a mat-menu-item [routerLink]="[link.url]">{{ link.title }}</a>
+        }
+      </mat-menu>
     </mat-toolbar>
   `,
   styles: [
