@@ -8,7 +8,11 @@ import {
   IContentfulEntries,
   IPageFields,
   IPageLink,
+  IRichTextPage,
+  IRichTextPageFields,
 } from './contentful';
+
+type LocaleResolver<T> = (locale: SupportedLocales) => ResolveFn<T>;
 
 export enum SupportedLocales {
   English = 'en-US',
@@ -20,9 +24,8 @@ export interface IHeaderInfo extends Omit<IAppHeader, 'logo' | 'headerLinks'> {
   headerLinks: IPageLink[];
 }
 
-export const loadHeaderInformation =
-  (locale: SupportedLocales): ResolveFn<IHeaderInfo> =>
-  async () => {
+export const loadHeaderInformation: LocaleResolver<IHeaderInfo> =
+  (locale) => async () => {
     const contentfulClient = inject(CONTENTFUL_CLIENT);
 
     const header = await contentfulClient.getEntry<
@@ -33,7 +36,6 @@ export const loadHeaderInformation =
 
     const logoAsset = await contentfulClient.getAsset(
       header.fields.logo.sys.id,
-
     );
     const headerLinks = await Promise.all(
       header.fields.headerLinks.map((link) =>
@@ -48,4 +50,18 @@ export const loadHeaderInformation =
       logo: logoAsset.fields.file.url,
       headerLinks: headerLinks.map((link) => link.fields),
     };
+  };
+
+export const loadRichTextPageInformation =
+  (locale: SupportedLocales, id: string): ResolveFn<IRichTextPage> =>
+  async () => {
+    const contentfulClient = inject(CONTENTFUL_CLIENT);
+
+    const about = await contentfulClient.getEntry<
+      EntrySkeletonType<IRichTextPageFields>
+    >(id, {
+      locale,
+    });
+
+    return about.fields;
   };

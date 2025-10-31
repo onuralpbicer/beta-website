@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { IHeaderInfo } from './shared/loader';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { IHeaderInfo } from './shared/loader';
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    RouterModule,
   ],
   template: `
     <mat-toolbar>
@@ -21,7 +23,7 @@ import { IHeaderInfo } from './shared/loader';
 
       <nav aria-label="Header tabs">
         @for (link of header().headerLinks; track link.url) {
-        <button mat-button>{{ link.title }}</button>
+        <a mat-button [routerLink]="[link.url]">{{ link.title }}</a>
         }
       </nav>
 
@@ -29,8 +31,6 @@ import { IHeaderInfo } from './shared/loader';
         <mat-icon>menu</mat-icon>
       </button>
     </mat-toolbar>
-
-    <button mat-flat-button>Test button</button>
   `,
   styles: [
     `

@@ -7,6 +7,8 @@ import {
 
 export enum IContentfulEntries {
   AppHeader = '6HdXki6dz7Z4s0hojQ358c',
+  AboutUs = '7EuN8NpkqQ3qen1o4GS3WK',
+  ContactUs = '4PIESIC36bloQRBVPVO8ES',
 }
 
 export enum IContentfulEnvs {
