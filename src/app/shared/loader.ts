@@ -10,28 +10,42 @@ import {
   IPageLink,
 } from './contentful';
 
+export enum SupportedLocales {
+  English = 'en-US',
+  Turkish = 'tr-TR',
+}
+
 export interface IHeaderInfo extends Omit<IAppHeader, 'logo' | 'headerLinks'> {
   logo: string;
   headerLinks: IPageLink[];
 }
 
-export const loadHeaderInformation: ResolveFn<IHeaderInfo> = async () => {
-  const contentfulClient = inject(CONTENTFUL_CLIENT);
+export const loadHeaderInformation =
+  (locale: SupportedLocales): ResolveFn<IHeaderInfo> =>
+  async () => {
+    const contentfulClient = inject(CONTENTFUL_CLIENT);
 
-  const header = await contentfulClient.getEntry<
-    EntrySkeletonType<IAppHeaderFields>
-  >(IContentfulEntries.AppHeader);
+    const header = await contentfulClient.getEntry<
+      EntrySkeletonType<IAppHeaderFields>
+    >(IContentfulEntries.AppHeader, {
+      locale,
+    });
 
-  const logoAsset = await contentfulClient.getAsset(header.fields.logo.sys.id);
-  const headerLinks = await Promise.all(
-    header.fields.headerLinks.map((link) =>
-      contentfulClient.getEntry<EntrySkeletonType<IPageFields>>(link.sys.id),
-    ),
-  );
+    const logoAsset = await contentfulClient.getAsset(
+      header.fields.logo.sys.id,
 
-  return {
-    ...header.fields,
-    logo: logoAsset.fields.file.url,
-    headerLinks: headerLinks.map((link) => link.fields),
+    );
+    const headerLinks = await Promise.all(
+      header.fields.headerLinks.map((link) =>
+        contentfulClient.getEntry<EntrySkeletonType<IPageFields>>(link.sys.id, {
+          locale,
+        }),
+      ),
+    );
+
+    return {
+      ...header.fields,
+      logo: logoAsset.fields.file.url,
+      headerLinks: headerLinks.map((link) => link.fields),
+    };
   };
-};

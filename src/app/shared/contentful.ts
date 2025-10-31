@@ -6,7 +6,7 @@ import {
 } from 'contentful';
 
 export enum IContentfulEntries {
-  AppHeader = '3bziQUv9Neq4sLT584yRh3',
+  AppHeader = '6HdXki6dz7Z4s0hojQ358c',
 }
 
 export enum IContentfulEnvs {
@@ -27,10 +27,23 @@ export interface IProductFields {
 export type IProductEntry = IContentfulEntry<IProductFields>;
 export type IProduct = ExtractType<IProductFields>;
 
-export interface IProductCategoryFields {
+export interface IProductSubCategoryFields {
   name: EntryFieldTypes.Text;
   products: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<EntrySkeletonType<IProductFields>>
+  >;
+}
+
+export type IProductSubCategoryEntry =
+  IContentfulEntry<IProductSubCategoryFields>;
+export type IProductSubCategory = ExtractType<IProductSubCategoryFields>;
+
+export interface IProductCategoryFields {
+  name: EntryFieldTypes.Text;
+  subCategoryOrProducts: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<
+      EntrySkeletonType<IProductFields | IProductSubCategoryFields>
+    >
   >;
 }
 
