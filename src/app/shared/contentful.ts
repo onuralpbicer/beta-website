@@ -42,6 +42,8 @@ export interface IPageFields {
   url: EntryFieldTypes.Text;
 }
 
+export type IPageLink = ExtractType<IPageFields>;
+
 export interface IProductPageFields extends IPageFields {
   products: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<EntrySkeletonType<IProductCategoryFields>>
@@ -66,8 +68,8 @@ export interface IAppHeaderFields {
   logo: EntryFieldTypes.AssetLink;
 }
 
-export type IAppHeaderEntry = IContentfulEntry<IRichTextPageFields>;
-export type IAppHeader = ExtractType<IRichTextPageFields>;
+export type IAppHeaderEntry = IContentfulEntry<IAppHeaderFields>;
+export type IAppHeader = ExtractType<IAppHeaderFields>;
 
 export interface IFooterColumnFields {
   title: EntryFieldTypes.Text;

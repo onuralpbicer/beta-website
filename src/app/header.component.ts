@@ -1,44 +1,27 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  resource,
-} from '@angular/core';
-import { CONTENTFUL_CLIENT } from './shared/contentful.client';
-import { IAppHeaderFields, IContentfulEntries } from './shared/contentful';
-import { EntrySkeletonType } from 'contentful';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { HeaderTab } from './header-tab';
 import { MatInputModule } from '@angular/material/input';
+import { IHeaderInfo } from './shared/loader';
 
 @Component({
   selector: 'app-header',
   imports: [
     CommonModule,
     MatToolbarModule,
-    NgOptimizedImage,
     MatButtonModule,
     MatIconModule,
-    HeaderTab,
     MatInputModule,
   ],
   template: `
     <mat-toolbar>
-      @if (logo.hasValue()) {
-      <img
-        [ngSrc]="logo.value().fields.file.url"
-        [height]="36"
-        [width]="108"
-        alt="logo"
-      />
-      }
+      <img [src]="header().logo" [height]="36" [width]="108" alt="logo" />
 
       <nav aria-label="Header tabs">
-        @for (link of header.value()?.fields.headerLinks; track link.sys.id) {
-        <app-header-tab [link]="link.sys.id" />
+        @for (link of header().headerLinks; track link.url) {
+        <button mat-button>{{ link.title }}</button>
         }
       </nav>
 
@@ -97,18 +80,6 @@ import { MatInputModule } from '@angular/material/input';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Header {
-  private readonly contentfulClient = inject(CONTENTFUL_CLIENT);
-
-  readonly header = resource({
-    loader: () =>
-      this.contentfulClient.getEntry<EntrySkeletonType<IAppHeaderFields>>(
-        IContentfulEntries.AppHeader,
-      ),
-  });
-
-  readonly logo = resource({
-    params: () => this.header.value()?.fields.logo.sys.id,
-    loader: ({ params: id }) => this.contentfulClient.getAsset(id),
-  });
+export class HeaderComponent {
+  header = input.required<IHeaderInfo>();
 }
