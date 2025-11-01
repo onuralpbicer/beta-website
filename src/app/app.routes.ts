@@ -54,6 +54,10 @@ function createRoutes(locale: SupportedLocales): Route[] {
           },
         })),
         {
+          path: '',
+          redirectTo: 'home',
+        },
+        {
           path: '**',
           redirectTo: 'home',
         },
@@ -66,6 +70,10 @@ export const appRoutes: Route[] = [
   ...Object.values(SupportedLocales)
     .map((locale) => createRoutes(locale))
     .flat(),
+  {
+    path: '',
+    redirectTo: SupportedLocales.Turkish + '/home',
+  },
   {
     path: '**',
     redirectTo: SupportedLocales.Turkish + '/home',
