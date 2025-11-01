@@ -5,17 +5,7 @@ import {
   SupportedLocales,
 } from './shared/loader';
 import { IContentfulEntries } from './shared/contentful';
-
-const paths = {
-  about: {
-    [SupportedLocales.Turkish]: 'hakkimizda',
-    [SupportedLocales.English]: 'about-us',
-  },
-  contact: {
-    [SupportedLocales.Turkish]: 'iletisim',
-    [SupportedLocales.English]: 'contact-us',
-  },
-} satisfies Record<string, Record<SupportedLocales, string>>;
+import { paths } from './routes';
 
 function createRoutes(locale: SupportedLocales): Route[] {
   const richTextPages = [
