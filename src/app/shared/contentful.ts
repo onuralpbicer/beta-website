@@ -1,9 +1,4 @@
-import {
-  Entry,
-  EntryFieldTypes,
-  EntrySkeletonType,
-  FieldsType,
-} from 'contentful';
+import { Entry, EntryFieldTypes, EntrySkeletonType, FieldsType } from 'contentful';
 
 export enum IContentfulEntries {
   AppHeader = '6HdXki6dz7Z4s0hojQ358c',
@@ -110,7 +105,8 @@ export type IFooter = ExtractType<IFooterFields>;
 
 export interface IWhyUsFields {
   title: EntryFieldTypes.Text;
-  icon: EntryFieldTypes.AssetLink;
+  icon?: EntryFieldTypes.AssetLink;
+  iconName?: EntryFieldTypes.Text;
 }
 export type IWhyUsEntry = IContentfulEntry<IWhyUsFields>;
 export type IWhyUs = ExtractType<IWhyUsFields>;
@@ -129,9 +125,11 @@ export interface IHomePageFields {
       >
     >
   >;
+  featuredTitle: EntryFieldTypes.Text;
   whyUs: EntryFieldTypes.Array<
     EntryFieldTypes.EntryLink<EntrySkeletonType<IWhyUsFields>>
   >;
+  whyUsTitle: EntryFieldTypes.Text;
 }
 export type IHomePageEntry = IContentfulEntry<IHomePageFields>;
 export type IHomePage = ExtractType<IHomePageFields>;

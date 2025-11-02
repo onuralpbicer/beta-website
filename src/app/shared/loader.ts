@@ -11,7 +11,9 @@ import {
   IPageFields,
   IPageLink,
   IRichTextPage,
-  IRichTextPageFields
+  IRichTextPageFields,
+  IWhyUs,
+  IWhyUsFields
 } from './contentful';
 
 export enum SupportedLocales {
@@ -64,8 +66,9 @@ export const loadRichTextPageInformation =
     return about.fields;
   };
 
-export interface IHomePageInfo extends Omit<IHomePage, 'heroImage'> {
+export interface IHomePageInfo extends Omit<IHomePage, 'heroImage' | 'whyUs'> {
   heroImage: string;
+  whyUs: IWhyUs[];
 }
 
 export const loadHomePage: ResolveFn<IHomePageInfo> = async () => {
@@ -85,8 +88,17 @@ export const loadHomePage: ResolveFn<IHomePageInfo> = async () => {
     },
   );
 
+  const whyUs = await Promise.all(
+    home.fields.whyUs.map((entry) =>
+      contentfulClient.getEntry<EntrySkeletonType<IWhyUsFields>>(entry.sys.id, {
+        locale,
+      }),
+    ),
+  );
+
   return {
     ...home.fields,
     heroImage: heroImage.fields.file.url,
+    whyUs: whyUs.map((entry) => entry.fields),
   };
 };
