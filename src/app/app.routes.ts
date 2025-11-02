@@ -6,6 +6,7 @@ import {
 } from './shared/loader';
 import { IContentfulEntries } from './shared/contentful';
 import { paths } from './routes';
+import { LOCALE_ID } from '@angular/core';
 
 function createRoutes(locale: SupportedLocales): Route[] {
   const richTextPages = [
@@ -24,6 +25,12 @@ function createRoutes(locale: SupportedLocales): Route[] {
       path: locale,
       loadComponent: () =>
         import('./page.component').then((c) => c.PageComponent),
+      providers: [
+        {
+          provide: LOCALE_ID,
+          useValue: locale,
+        },
+      ],
       resolve: {
         header: loadHeaderInformation(locale),
       },
@@ -46,6 +53,7 @@ function createRoutes(locale: SupportedLocales): Route[] {
         {
           path: '',
           redirectTo: 'home',
+          pathMatch: 'full',
         },
         {
           path: '**',
@@ -63,6 +71,7 @@ export const appRoutes: Route[] = [
   {
     path: '',
     redirectTo: SupportedLocales.Turkish + '/home',
+    pathMatch: 'full',
   },
   {
     path: '**',

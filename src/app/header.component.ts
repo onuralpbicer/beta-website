@@ -1,10 +1,16 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  LOCALE_ID,
+} from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { IHeaderInfo } from './shared/loader';
+import { IHeaderInfo, SupportedLocales } from './shared/loader';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 
@@ -21,13 +27,20 @@ import { MatMenuModule } from '@angular/material/menu';
   ],
   template: `
     <mat-toolbar>
-      <img [src]="header().logo" [height]="36" [width]="108" alt="logo" />
+      <img class="logo" [src]="header().logo" alt="logo" />
 
       <nav aria-label="Header tabs">
         @for (link of header().headerLinks; track link.url) {
         <a mat-button [routerLink]="[link.url]">{{ link.title }}</a>
         }
       </nav>
+
+      <div class="spacer" aria-hidden="true"></div>
+
+      <a mat-button [routerLink]="['/', toLocale]">
+        <mat-icon class="svg-icon" [svgIcon]="toLocale"> </mat-icon>
+        {{ toLocaleName }}
+      </a>
 
       <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
@@ -43,6 +56,18 @@ import { MatMenuModule } from '@angular/material/menu';
     `
       @use '@angular/material' as mat;
       @use 'theme' as theme;
+
+      .logo {
+        height: calc(var(--mat-toolbar-standard-height, 48px) - 1rem);
+      }
+
+      .spacer {
+        flex: 1;
+      }
+
+      .svg-icon {
+        margin-top: 4px;
+      }
 
       :host {
         @media (min-width: 599px) {
@@ -88,5 +113,14 @@ import { MatMenuModule } from '@angular/material/menu';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
+  readonly currentLocale = inject(LOCALE_ID);
+  readonly toLocale =
+    this.currentLocale === SupportedLocales.English
+      ? SupportedLocales.Turkish
+      : SupportedLocales.English;
+  readonly toLocaleName =
+    this.toLocale === SupportedLocales.English ? 'English' : 'Türkçe';
+
   header = input.required<IHeaderInfo>();
+  protected readonly SupportedLocales = SupportedLocales;
 }
