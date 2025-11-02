@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import {
+  loadFooter,
   loadHeaderInformation,
   loadHomePage,
   loadRichTextPageInformation,
@@ -34,6 +35,7 @@ function createRoutes(locale: SupportedLocales): Route[] {
       ],
       resolve: {
         header: loadHeaderInformation,
+        footer: loadFooter,
       },
       children: [
         {

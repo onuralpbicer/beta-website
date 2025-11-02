@@ -1,10 +1,16 @@
-import { Entry, EntryFieldTypes, EntrySkeletonType, FieldsType } from 'contentful';
+import {
+  Entry,
+  EntryFieldTypes,
+  EntrySkeletonType,
+  FieldsType,
+} from 'contentful';
 
 export enum IContentfulEntries {
   AppHeader = '6HdXki6dz7Z4s0hojQ358c',
   AboutUs = '7EuN8NpkqQ3qen1o4GS3WK',
   ContactUs = '4PIESIC36bloQRBVPVO8ES',
   Home = '2DWaQQjSCRZGsFYUAONUqa',
+  Footer = '1pzdwAfzyJw5uF9yp2lwop',
 }
 
 export enum IContentfulEnvs {

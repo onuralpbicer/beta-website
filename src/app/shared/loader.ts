@@ -6,6 +6,10 @@ import {
   IAppHeader,
   IAppHeaderFields,
   IContentfulEntries,
+  IFooter,
+  IFooterColumn,
+  IFooterColumnFields,
+  IFooterFields,
   IHomePage,
   IHomePageFields,
   IPageFields,
@@ -100,5 +104,36 @@ export const loadHomePage: ResolveFn<IHomePageInfo> = async () => {
     ...home.fields,
     heroImage: heroImage.fields.file.url,
     whyUs: whyUs.map((entry) => entry.fields),
+  };
+};
+
+export interface IFooterInfo extends Omit<IFooter, 'footerColumns'> {
+  footerColumns: IFooterColumn[];
+}
+
+export const loadFooter: ResolveFn<IFooterInfo> = async () => {
+  const contentfulClient = inject(CONTENTFUL_CLIENT);
+  const locale = inject(LOCALE_ID);
+
+  const footer = await contentfulClient.getEntry<
+    EntrySkeletonType<IFooterFields>
+  >(IContentfulEntries.Footer, {
+    locale,
+  });
+
+  const footerColumns = await Promise.all(
+    footer.fields.footerColumns.map((entry) =>
+      contentfulClient.getEntry<EntrySkeletonType<IFooterColumnFields>>(
+        entry.sys.id,
+        {
+          locale,
+        },
+      ),
+    ),
+  );
+
+  return {
+    ...footer.fields,
+    footerColumns: footerColumns.map((entry) => entry.fields),
   };
 };

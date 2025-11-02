@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header.component';
-import { IHeaderInfo } from './shared/loader';
+import { IFooterInfo, IHeaderInfo } from './shared/loader';
 import { FooterComponent } from './footer.component';
 
 @Component({
@@ -12,11 +12,12 @@ import { FooterComponent } from './footer.component';
     <main>
       <router-outlet />
     </main>
-    <app-footer />
+    <app-footer [footer]="footer()" />
   `,
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageComponent {
   header = input.required<IHeaderInfo>();
+  footer = input.required<IFooterInfo>();
 }
