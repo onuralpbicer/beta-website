@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import {
   loadHeaderInformation,
+  loadHomePage,
   loadRichTextPageInformation,
   SupportedLocales,
 } from './shared/loader';
@@ -32,13 +33,16 @@ function createRoutes(locale: SupportedLocales): Route[] {
         },
       ],
       resolve: {
-        header: loadHeaderInformation(locale),
+        header: loadHeaderInformation,
       },
       children: [
         {
           path: 'home',
           loadComponent: () =>
             import('./home-page.component').then((c) => c.HomePageComponent),
+          resolve: {
+            home: loadHomePage,
+          },
         },
         ...richTextPages.map(({ path, entry }) => ({
           path,
@@ -47,7 +51,7 @@ function createRoutes(locale: SupportedLocales): Route[] {
               (c) => c.RichTextPageComponent,
             ),
           resolve: {
-            richText: loadRichTextPageInformation(locale, entry),
+            richText: loadRichTextPageInformation(entry),
           },
         })),
         {

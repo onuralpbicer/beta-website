@@ -8,7 +8,11 @@ import { FooterComponent } from './footer.component';
   imports: [RouterModule, HeaderComponent, FooterComponent],
   selector: 'app-page',
   template: `
-    <app-header [header]="header()" /> <router-outlet /> <app-footer />
+    <app-header [header]="header()" />
+    <main>
+      <router-outlet />
+    </main>
+    <app-footer />
   `,
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,

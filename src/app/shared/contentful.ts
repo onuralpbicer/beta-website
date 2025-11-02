@@ -9,6 +9,7 @@ export enum IContentfulEntries {
   AppHeader = '6HdXki6dz7Z4s0hojQ358c',
   AboutUs = '7EuN8NpkqQ3qen1o4GS3WK',
   ContactUs = '4PIESIC36bloQRBVPVO8ES',
+  Home = '2DWaQQjSCRZGsFYUAONUqa',
 }
 
 export enum IContentfulEnvs {
@@ -106,3 +107,31 @@ export interface IFooterFields {
 
 export type IFooterEntry = IContentfulEntry<IFooterFields>;
 export type IFooter = ExtractType<IFooterFields>;
+
+export interface IWhyUsFields {
+  title: EntryFieldTypes.Text;
+  icon: EntryFieldTypes.AssetLink;
+}
+export type IWhyUsEntry = IContentfulEntry<IWhyUsFields>;
+export type IWhyUs = ExtractType<IWhyUsFields>;
+
+export interface IHomePageFields {
+  title: EntryFieldTypes.Text;
+  heroTitle: EntryFieldTypes.Text;
+  heroDescription: EntryFieldTypes.Text;
+  heroImage: EntryFieldTypes.AssetLink;
+  linkText: EntryFieldTypes.Text;
+  linkTo: EntryFieldTypes.EntryLink<EntrySkeletonType<IPageFields>>;
+  featured: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<
+      EntrySkeletonType<
+        IProductCategoryFields | IProductSubCategoryFields | IProductFields
+      >
+    >
+  >;
+  whyUs: EntryFieldTypes.Array<
+    EntryFieldTypes.EntryLink<EntrySkeletonType<IWhyUsFields>>
+  >;
+}
+export type IHomePageEntry = IContentfulEntry<IHomePageFields>;
+export type IHomePage = ExtractType<IHomePageFields>;
