@@ -1,0 +1,6 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:24-trixie",
+	"postCreateCommand": "npm install",
+	"workspaceFolder": "/workspace/beta-website",
+	"forwardPorts": [22, 5173, 8080]
+}
