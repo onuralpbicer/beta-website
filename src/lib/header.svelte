@@ -9,16 +9,16 @@
 
 <header class="h-16 md:h-18 p-4 flex items-center border-primary-500 border-b">
     <a href={`/${locale}`}>
-        <img class="max-h-16 md:max-h-18" src="{header.logo}" alt="logo"/>
+        <img alt="logo" class="max-h-16 md:max-h-18" src="{header.logo}"/>
     </a>
 
     <nav aria-label="Header tabs" class="hidden md:block ml-2">
         {#each header.headerLinks as link}
-            <a href={`/${locale}/${link.url}`} class="ml-2">{link.title}</a>
+            <a href={`/${locale}/${link.slug}`} class="ml-2">{link.title}</a>
         {/each}
     </nav>
 
-    <div class="flex-1" aria-hidden="true"></div>
+    <div aria-hidden="true" class="flex-1"></div>
 
     <DropdownMenu.Root>
         <DropdownMenu.Trigger>
@@ -26,10 +26,10 @@
                 <Menu/>
             </Button>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content class="w-56" align="end">
+        <DropdownMenu.Content align="end" class="w-56">
             {#each header.headerLinks as link}
                 <DropdownMenu.Item>
-                    <a href={`/${locale}/${link.url}`} class="ml-2">{link.title}</a>
+                    <a href={`/${locale}/${link.slug}`} class="ml-2">{link.title}</a>
                 </DropdownMenu.Item>
             {/each}
         </DropdownMenu.Content>

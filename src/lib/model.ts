@@ -1,6 +1,8 @@
-import type { IAppHeader, IPageLink } from '$lib/contentful';
+import type { IAppHeader } from '$lib/contentful';
+import type { ExtractType } from '$lib/contentful/helpers';
+import type { LinkablePages } from '$lib/contentful/pages';
 
 export interface IHeaderInfo extends Omit<IAppHeader, 'logo' | 'headerLinks'> {
 	logo: string;
-	headerLinks: IPageLink[];
+	headerLinks: ExtractType<LinkablePages>[];
 }
