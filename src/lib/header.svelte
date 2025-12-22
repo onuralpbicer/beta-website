@@ -1,0 +1,35 @@
+<script lang="ts">
+    import type {IHeaderInfo} from '$lib/model';
+    import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
+    import {Button} from "$lib/components/ui/button/index.js";
+    import {Menu} from '@lucide/svelte'
+
+    let {headerInfo: header, locale}: { headerInfo: IHeaderInfo, locale: string } = $props();
+</script>
+
+<header class="h-16 md:h-18 p-4 flex items-center border-primary-500 border-b">
+    <img class="max-h-16 md:max-h-18" src="{header.logo}" alt="logo"/>
+
+    <nav aria-label="Header tabs" class="hidden md:block ml-2">
+        {#each header.headerLinks as link}
+            <a href={`/${locale}/${link.url}`} class="ml-2">{link.title}</a>
+        {/each}
+    </nav>
+
+    <div class="flex-1" aria-hidden="true"></div>
+
+    <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+            <Button class="md:hidden" variant="outline">
+                <Menu/>
+            </Button>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content class="w-56" align="end">
+            {#each header.headerLinks as link}
+                <DropdownMenu.Item>
+                    <a href={`/${locale}/${link.url}`} class="ml-2">{link.title}</a>
+                </DropdownMenu.Item>
+            {/each}
+        </DropdownMenu.Content>
+    </DropdownMenu.Root>
+</header>
