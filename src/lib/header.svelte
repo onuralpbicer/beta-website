@@ -8,7 +8,9 @@
 </script>
 
 <header class="h-16 md:h-18 p-4 flex items-center border-primary-500 border-b">
-    <img class="max-h-16 md:max-h-18" src="{header.logo}" alt="logo"/>
+    <a href={`/${locale}`}>
+        <img class="max-h-16 md:max-h-18" src="{header.logo}" alt="logo"/>
+    </a>
 
     <nav aria-label="Header tabs" class="hidden md:block ml-2">
         {#each header.headerLinks as link}
