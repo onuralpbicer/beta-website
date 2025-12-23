@@ -1,14 +1,14 @@
 import { createClient, type EntrySkeletonType } from 'contentful';
 import { CONTENTFUL_HOST, CONTENTFUL_SPACE, CONTENTFUL_TOKEN } from '$env/static/private';
-import { IContentfulEntries, type IHomePageFields } from '$lib/contentful';
-import type { LinkablePages } from '$lib/contentful/pages';
+import { IContentfulEntries, type IHomePageEntry, type IHomePageFields } from '$lib/contentful';
+import type { LinkablePages, Pages } from '$lib/contentful/pages';
 import { error } from '@sveltejs/kit';
 
 export const contentfulClient = createClient({
 	space: CONTENTFUL_SPACE,
 	accessToken: CONTENTFUL_TOKEN,
 	host: CONTENTFUL_HOST,
-}).withoutLinkResolution;
+});
 
 export async function getSluggableContentTypes() {
 	const contentTypes = await contentfulClient.getContentTypes();
@@ -33,7 +33,7 @@ export async function getEntry(locale: string, slug: string) {
 
 	const res = await Promise.all(
 		sluggableContentTypes.map(async (contentType) => {
-			const res = await contentfulClient.getEntries<EntrySkeletonType<LinkablePages>>({
+			const res = await contentfulClient.getEntries<EntrySkeletonType<Pages>>({
 				content_type: contentType.sys.id,
 				'fields.slug': slug,
 				limit: 1,

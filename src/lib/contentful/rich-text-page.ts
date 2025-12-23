@@ -3,7 +3,6 @@ import type { EntryFieldTypes } from 'contentful';
 import type { ExtractType, IContentfulEntry } from '$lib/contentful/helpers';
 
 export interface IRichTextPageFields extends IPageFields {
-	kind: 'richTextPage';
 	content: EntryFieldTypes.RichText;
 }
 
