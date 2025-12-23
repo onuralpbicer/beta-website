@@ -1,6 +1,7 @@
 <script lang="ts">
     import type {LayoutProps} from './$types';
     import Header from '$lib/header.svelte'
+    import {page} from '$app/state'
 
     let {data, children, params}: LayoutProps = $props();
 
@@ -14,12 +15,12 @@
 <footer>footer</footer>
 <svelte:head>
     {#if data.entry}
-        <link rel="canonical" href={`/${canonicalLang().code}/${canonicalLang().href}`}/>
+        <link rel="canonical" href={`${page.url.origin}/${canonicalLang().code}/${canonicalLang().href}`}/>
 
         {#each data.alternateTranslations as translation}
-            <!-- todo might need to fix these hrefs -->
-            <link rel="alternate" hreflang={translation.hreflang} href={`/${translation.code}/${translation.href}`}/>
+            <link rel="alternate" hreflang={translation.hreflang}
+                  href={`${page.url.origin}/${translation.code}/${translation.href}`}/>
         {/each}
-        <link rel="alternate" hreflang="x-default" href={`/${mainLang().code}/${mainLang().href}`}/>
+        <link rel="alternate" hreflang="x-default" href={`${page.url.origin}/${mainLang().code}/${mainLang().href}`}/>
     {/if}
 </svelte:head>
