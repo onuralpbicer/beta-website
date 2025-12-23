@@ -6,3 +6,10 @@ export interface IHeaderInfo extends Omit<IAppHeader, 'logo' | 'headerLinks'> {
 	logo: string;
 	headerLinks: ExtractType<LinkablePages>[];
 }
+
+export interface AlternateTranslation {
+	code: string;
+	href: string;
+	name: string;
+	hreflang: string;
+}

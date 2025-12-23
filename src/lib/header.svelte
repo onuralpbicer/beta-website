@@ -1,10 +1,16 @@
 <script lang="ts">
-    import type {IHeaderInfo} from '$lib/model';
+    import type {AlternateTranslation, IHeaderInfo} from '$lib/model';
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import {Button} from "$lib/components/ui/button/index.js";
     import {Menu} from '@lucide/svelte'
 
-    let {headerInfo: header, locale}: { headerInfo: IHeaderInfo, locale: string } = $props();
+    let {headerInfo: header, locale, translations}: {
+        headerInfo: IHeaderInfo,
+        locale: string,
+        translations: AlternateTranslation[]
+    } = $props();
+
+    const translation = $derived(() => translations.find((l) => l.code !== locale)!)
 </script>
 
 <header class="h-16 md:h-18 p-4 flex items-center border-primary-500 border-b">
@@ -20,6 +26,11 @@
 
     <div aria-hidden="true" class="flex-1"></div>
 
+
+    <a class="mr-4 flex items-center gap-1" href={`/${translation().code}/${translation().href}`}>
+        <img alt={`${translation().name} Language Page`} src={`/flags/${translation().code}.svg`} width="24"/>
+        {translation().name}
+    </a>
     <DropdownMenu.Root>
         <DropdownMenu.Trigger>
             <Button class="md:hidden" variant="outline">
