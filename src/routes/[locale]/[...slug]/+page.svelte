@@ -11,7 +11,7 @@
 </script>
 
 {#if data.entry?.sys.contentType.sys.id === 'homePage'}
-    <HomePage home={homePage()}/>
+    <HomePage home={homePage()} locale={params.locale}/>
 {:else if (data.entry?.sys.contentType.sys.id === 'richTextPage') }
     <RichTextPage richText={richTextPage()}/>
 {:else}
