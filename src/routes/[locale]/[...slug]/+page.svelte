@@ -14,4 +14,6 @@
     <HomePage home={homePage()}/>
 {:else if (data.entry?.sys.contentType.sys.id === 'richTextPage') }
     <RichTextPage richText={richTextPage()}/>
+{:else}
+    {data.entry?.sys.contentType.sys.id}
 {/if}
