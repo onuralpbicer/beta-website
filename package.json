@@ -54,6 +54,7 @@
 		"vitest-browser-svelte": "^2.0.1"
 	},
 	"dependencies": {
+		"@contentful/rich-text-html-renderer": "^17.1.6",
 		"contentful": "^11.10.1"
 	}
 }
