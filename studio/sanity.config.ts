@@ -3,17 +3,7 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
-
-const languages = [
-  {
-    id: 'en',
-    title: 'English',
-  },
-  {
-    id: 'tr',
-    title: 'Turkish',
-  },
-]
+import {languages} from '../config'
 
 export default defineConfig({
   name: 'default',

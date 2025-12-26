@@ -1,11 +1,12 @@
 import {defineType, defineField} from 'sanity'
-import {pageFields} from './shared'
+import {pageFields, pagePreview} from './shared'
 
 export default defineType({
   name: 'servicesPage',
   title: 'Hizmetler Sayfası',
   description: 'Bundan sadece bir tane yaratin!!!',
   type: 'document',
+  preview: pagePreview,
   fields: [
     ...pageFields,
 

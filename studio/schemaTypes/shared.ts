@@ -1,5 +1,12 @@
 import {defineField, defineType} from 'sanity'
 
+export const pagePreview = {
+  select: {
+    title: 'title.[1].value',
+    subtitle: 'title.[0].value',
+  },
+}
+
 export const pageFields = [
   defineField({
     name: 'title',
