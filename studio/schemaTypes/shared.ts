@@ -16,12 +16,9 @@ export const pageFields = [
   }),
   defineField({
     name: 'slug',
-    type: 'slug',
+    type: 'internationalizedArrayString',
     title: 'Slug',
     validation: (rule) => rule.required(),
-    options: {
-      source: 'title',
-    },
     // maybe make readonly for non-admins
   }),
 ]
