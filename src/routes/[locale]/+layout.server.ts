@@ -4,6 +4,7 @@ import type { EntrySkeletonType } from 'contentful';
 import { type IAppHeaderFields, IContentfulEntries } from '$lib/contentful';
 import type { LinkablePages } from '$lib/contentful/pages';
 import { redirect } from '@sveltejs/kit';
+import { languages } from '../../../config';
 
 const hrefLangs: Record<string, string> = {
 	en: 'en-US',
@@ -11,14 +12,12 @@ const hrefLangs: Record<string, string> = {
 };
 
 export const load: LayoutServerLoad = async ({ params }) => {
-	const allowedLocales = await contentfulClient.getLocales();
-
-	if (!allowedLocales.items.map((l) => l.code).includes(params.locale)) {
+	if (!languages.map((l) => l.code).includes(params.locale)) {
 		redirect(308, await getHomePageUrl('tr'));
 	}
 
-	let alternateTranslations = allowedLocales.items.map((locale) => ({
-		name: locale.name,
+	let alternateTranslations = languages.map((locale) => ({
+		name: locale.title,
 		code: locale.code,
 		href: locale.code,
 		hreflang: hrefLangs[locale.code] ?? locale.code,
@@ -32,9 +31,7 @@ export const load: LayoutServerLoad = async ({ params }) => {
 			EntrySkeletonType<LinkablePages>
 		>(entry.sys.id);
 
-		const localeMap = Object.fromEntries(
-			allowedLocales.items.map((locale) => [locale.code, locale.name]),
-		);
+		const localeMap = Object.fromEntries(languages.map((locale) => [locale.code, locale.title]));
 
 		alternateTranslations = Object.entries(multiLocaleEntry.fields.slug).map(([key, value]) => ({
 			code: key,

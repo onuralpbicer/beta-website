@@ -4,6 +4,11 @@ export default defineType({
   name: 'appHeader',
   title: 'Uygulama Başlığı',
   description: 'Bundan sadece bir tane yaratin!!!',
+  preview: {
+    prepare() {
+      return {title: 'Uygulama Başlığı, sadece bir tane!!!'}
+    },
+  },
   type: 'document',
   fields: [
     defineField({
