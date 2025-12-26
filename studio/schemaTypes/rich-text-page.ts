@@ -9,7 +9,7 @@ export default defineType({
     ...pageFields,
     defineField({
       name: 'content',
-      type: 'blockContent',
+      type: 'internationalizedArrayBlockContent',
       title: 'İçerik',
       validation: (rule) => rule.required(),
     }),

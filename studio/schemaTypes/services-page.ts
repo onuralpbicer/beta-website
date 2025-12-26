@@ -11,7 +11,7 @@ export default defineType({
 
     defineField({
       name: 'products',
-      title: 'Linked Pages',
+      title: 'Ürün kategorileri, alt kategorileri veya ürünler',
       type: 'array',
       of: [
         defineField({

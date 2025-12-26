@@ -2,21 +2,14 @@ import {defineField, defineType} from 'sanity'
 
 export const pageFields = [
   defineField({
-    // should match 'languageField' plugin configuration setting, if customized
-    name: 'language',
-    type: 'string',
-    readOnly: true,
-    // hidden: true,
-  }),
-  defineField({
     name: 'title',
-    type: 'string',
+    type: 'internationalizedArrayString',
     title: 'İsim',
     validation: (rule) => rule.required(),
   }),
   defineField({
     name: 'metaDescription',
-    type: 'string',
+    type: 'internationalizedArrayString',
     title: 'Meta Tanımı',
     validation: (rule) => rule.required(),
     // maybe make readonly for non-admins

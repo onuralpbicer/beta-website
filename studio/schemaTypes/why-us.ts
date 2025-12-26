@@ -8,7 +8,7 @@ export default defineType({
     defineField({name: 'title', title: 'İsim', type: 'string', validation: (r) => r.required()}),
     defineField({
       name: 'icon',
-      title: 'Icon ismi',
+      title: 'Icon',
       type: 'image',
       options: {hotspot: true},
     }),

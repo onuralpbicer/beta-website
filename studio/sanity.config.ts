@@ -1,9 +1,8 @@
-import {defineConfig, defineField} from 'sanity'
+import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
-import {documentInternationalization} from '@sanity/document-internationalization'
 
 const languages = [
   {
@@ -26,12 +25,6 @@ export default defineConfig({
   plugins: [
     structureTool(),
     visionTool(),
-    documentInternationalization({
-      supportedLanguages: languages,
-      schemaTypes: schemaTypes
-        .map((type) => type.name)
-        .filter((type) => type.toLowerCase().endsWith('page')),
-    }),
     internationalizedArray({
       languages,
       defaultLanguages: ['en', 'tr'],

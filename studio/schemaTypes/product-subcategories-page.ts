@@ -16,7 +16,7 @@ export default defineType({
     }),
     defineField({
       name: 'products',
-      title: 'Products',
+      title: 'Ürünler',
       type: 'array',
       of: [
         defineField({
