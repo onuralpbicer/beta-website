@@ -9,7 +9,10 @@ export const sanityClient = createClient({
 });
 
 export async function getHomePageUrl(locale: string) {
-	const res: GetHomePageQueryResult = await sanityClient.fetch(getHomePageQuery);
+	const res: GetHomePageQueryResult = await sanityClient.fetch(getHomePageQuery, {
+		locale,
+	});
+	console.log(locale, res);
 	return `/${locale}/${res!.slug}`;
 }
 
@@ -111,3 +114,8 @@ export const getEntryBySlugAndLocale = groq`*[
 export const getHomePageQuery = groq`*[_type == 'homePage']{
   "slug": slug[_key == $locale][0].value
 }[0]`;
+
+export const getEntriesQuery = groq`*[defined(slug) && count(slug) > 0].slug[]{
+  "locale": _key,
+  "slug": value
+}`;
