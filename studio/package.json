@@ -9,7 +9,9 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy"
+    "deploy-graphql": "sanity graphql deploy",
+    "extract": "sanity schema extract --enforce-required-fields",
+    "typegen": "sanity typegen generate"
   },
   "keywords": [
     "sanity"
@@ -23,6 +25,7 @@
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
+    "@sanity/cli": "^5.1.0",
     "@sanity/eslint-config-studio": "^5.0.2",
     "@types/react": "^19.1",
     "eslint": "^9.28",

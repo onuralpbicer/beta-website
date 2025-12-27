@@ -5,6 +5,9 @@ import { type IAppHeaderFields, IContentfulEntries } from '$lib/contentful';
 import type { LinkablePages } from '$lib/contentful/pages';
 import { redirect } from '@sveltejs/kit';
 import { languages } from '../../../config';
+import { headerInfoQuery, sanityClient } from '$lib/sanity.client';
+import type { HeaderInfoQueryResult } from '$lib/sanity.types';
+import type { IHeaderInfo } from '$lib/model';
 
 const hrefLangs: Record<string, string> = {
 	en: 'en-US',
@@ -49,25 +52,10 @@ export const load: LayoutServerLoad = async ({ params }) => {
 };
 
 async function loadHeaderInfo(locale: string) {
-	const header = await contentfulClient.getEntry<EntrySkeletonType<IAppHeaderFields>>(
-		IContentfulEntries.AppHeader,
-		{
-			locale: locale,
-		},
-	);
+	const sanityHeader: HeaderInfoQueryResult = await sanityClient.fetch(headerInfoQuery, {
+		locale,
+	});
 
-	const logoAsset = await contentfulClient.getAsset(header.fields.logo.sys.id);
-	const headerLinks = await Promise.all(
-		header.fields.headerLinks.map((link) =>
-			contentfulClient.getEntry<EntrySkeletonType<LinkablePages>>(link.sys.id, {
-				locale: locale,
-			}),
-		),
-	);
 
-	return {
-		...header.fields,
-		logo: logoAsset.fields.file!.url ?? '',
-		headerLinks: headerLinks.map((link) => link.fields),
-	};
+	return sanityHeader
 }

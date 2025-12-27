@@ -3,9 +3,10 @@
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import {Button} from "$lib/components/ui/button/index.js";
     import {Menu} from '@lucide/svelte'
+    import type {HeaderInfoQueryResult} from "$lib/sanity.types";
 
     let {headerInfo: header, locale, translations}: {
-        headerInfo: IHeaderInfo,
+        headerInfo: HeaderInfoQueryResult,
         locale: string,
         translations: AlternateTranslation[]
     } = $props();
@@ -15,11 +16,11 @@
 
 <header class="h-16 md:h-18 p-4 flex items-center border-primary-500 border-b">
     <a href={`/${locale}`}>
-        <img alt="logo" class="max-h-16 md:max-h-18" src="{header.logo}"/>
+        <img alt="logo" class="max-h-16 md:max-h-18" src="{header?.logo.asset?.url}"/>
     </a>
 
     <nav aria-label="Header tabs" class="hidden md:block ml-2">
-        {#each header.headerLinks as link}
+        {#each header?.headerLinks as link}
             <a href={`/${locale}/${link.slug}`} class="ml-2">{link.title}</a>
         {/each}
     </nav>
@@ -38,7 +39,7 @@
             </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content align="end" class="w-56">
-            {#each header.headerLinks as link}
+            {#each header?.headerLinks as link}
                 <DropdownMenu.Item>
                     <a href={`/${locale}/${link.slug}`} class="ml-2">{link.title}</a>
                 </DropdownMenu.Item>
