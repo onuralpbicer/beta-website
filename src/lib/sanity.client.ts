@@ -16,7 +16,6 @@ export async function getHomePageUrl(locale: string) {
 	const res: GetHomePageQueryResult = await sanityClient.fetch(getHomePageQuery, {
 		locale,
 	});
-	console.log(locale, res);
 	return `/${locale}/${res!.slug}`;
 }
 
