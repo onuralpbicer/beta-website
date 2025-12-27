@@ -4,6 +4,7 @@ import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {internationalizedArray} from 'sanity-plugin-internationalized-array'
 import {languages} from '../config'
+import {trTRLocale} from '@sanity/locale-tr-tr'
 
 export default defineConfig({
   name: 'default',
@@ -20,6 +21,7 @@ export default defineConfig({
       defaultLanguages: ['en', 'tr'],
       fieldTypes: ['string', 'blockContent'],
     }),
+    trTRLocale(),
   ],
 
   schema: {
