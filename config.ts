@@ -7,6 +7,6 @@ export const languages = [
 	{
 		id: 'tr',
 		code: 'tr',
-		title: 'Turkish',
+		title: 'Türkçe',
 	},
 ];
