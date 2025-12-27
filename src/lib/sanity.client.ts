@@ -1,11 +1,17 @@
 import { createClient } from '@sanity/client';
 import groq from 'groq';
+import type { GetHomePageQueryResult } from '$lib/sanity.types';
 
 export const sanityClient = createClient({
 	projectId: '12mm2gbu',
 	dataset: 'production',
 	useCdn: true,
 });
+
+export async function getHomePageUrl(locale: string) {
+	const res: GetHomePageQueryResult = await sanityClient.fetch(getHomePageQuery);
+	return `/${locale}/${res!.slug}`;
+}
 
 export const headerInfoQuery = groq`*[_type == "appHeader"][0]{
   logo{ asset->{ url } },
@@ -100,4 +106,8 @@ export const getEntryBySlugAndLocale = groq`*[
     {}
 
   )
+}[0]`;
+
+export const getHomePageQuery = groq`*[_type == 'homePage']{
+  "slug": slug[_key == $locale][0].value
 }[0]`;

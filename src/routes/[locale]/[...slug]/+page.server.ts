@@ -1,8 +1,11 @@
-import { contentfulClient, getSluggableContentTypes } from '$lib/contentful.client';
+import { contentfulClient } from '$lib/contentful.client';
 import type { EntryGenerator } from './$types';
 
 export const entries: EntryGenerator = async () => {
-	const sluggableContentTypes = await getSluggableContentTypes();
+	const contentTypes = await contentfulClient.getContentTypes();
+	const sluggableContentTypes = contentTypes.items.filter((contentType) =>
+		contentType.fields.some((field) => field.id === 'slug'),
+	);
 	const locales = await contentfulClient.getLocales();
 
 	const entries = [];

@@ -1,8 +1,8 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getHomePageUrl } from '$lib/contentful.client';
 import type { EntryGenerator } from './$types';
 import { languages } from '../../../config';
+import { getHomePageUrl } from '$lib/sanity.client';
 
 export const load: PageServerLoad = async ({ params }) => {
 	redirect(308, await getHomePageUrl(params.locale));

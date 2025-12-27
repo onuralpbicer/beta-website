@@ -1,9 +1,9 @@
 import type { LayoutServerLoad } from './$types';
-import { getHomePageUrl } from '$lib/contentful.client';
 import { error, redirect } from '@sveltejs/kit';
 import { languages } from '../../../config';
 import {
 	getEntryBySlugAndLocale,
+	getHomePageUrl,
 	headerInfoQuery,
 	sanityClient,
 	sluggableContentTypesQuery,
