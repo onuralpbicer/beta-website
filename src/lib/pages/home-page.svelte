@@ -1,26 +1,25 @@
 <script lang="ts">
 
-    import type {IHomePageEntry} from "$lib/contentful";
     import {Button} from "$lib/components/ui/button/index.js";
+    import type {IHomePage} from "$lib/sanity.model";
 
-    let {home, locale}: { home: IHomePageEntry, locale: string } = $props();
+    let {home, locale}: { home: IHomePage, locale: string } = $props();
 
-    const heroImage = $derived(() => home.fields.heroImage!)
-    const heroImageUrl = $derived(() => heroImage().fields.file!.url)
+    const heroImageUrl = $derived(() => home.page.heroImage.asset!.url)
 
-    const heroLink = $derived(() => home.fields.linkTo!.fields.slug)
+    const heroLink = $derived(() => home.page.linkTo!.slug)
 </script>
 <section
         class="flex flex-col items-start justify-center relative h-[40dvh] md:h-[50dvh] after:absolute after:inset-0 after:block after:bg-primary after:opacity-50 after:z-[-1] text-primary-foreground">
-    <img alt={heroImage().fields.title} class="z-[-1] absolute inset-0 h-full w-full object-cover"
+    <img aria-hidden="true" alt="Hero" class="z-[-1] absolute inset-0 h-full w-full object-cover"
          src={heroImageUrl()}/>
     <div class="mx-auto w-full md:max-w-[70vw] px-8">
-        <h1 class="heading-1">{home.fields.heroTitle}</h1>
-        <p class="mt-4">{home.fields.heroDescription}</p>
+        <h1 class="heading-1">{home.page.heroTitle}</h1>
+        <p class="mt-4">{home.page.heroDescription}</p>
 
         <a href={`/${locale}/${heroLink()}`}>
             <Button class="mt-8" variant="secondary">
-                {home.fields.linkText}
+                {home.page.linkText}
             </Button>
         </a>
     </div>

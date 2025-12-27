@@ -1,13 +1,18 @@
 import type { LayoutServerLoad } from './$types';
-import { contentfulClient, getEntry, getHomePageUrl } from '$lib/contentful.client';
-import type { EntrySkeletonType } from 'contentful';
-import { type IAppHeaderFields, IContentfulEntries } from '$lib/contentful';
-import type { LinkablePages } from '$lib/contentful/pages';
-import { redirect } from '@sveltejs/kit';
+import { getHomePageUrl } from '$lib/contentful.client';
+import { error, redirect } from '@sveltejs/kit';
 import { languages } from '../../../config';
-import { headerInfoQuery, sanityClient } from '$lib/sanity.client';
-import type { HeaderInfoQueryResult } from '$lib/sanity.types';
-import type { IHeaderInfo } from '$lib/model';
+import {
+	getEntryBySlugAndLocale,
+	headerInfoQuery,
+	sanityClient,
+	sluggableContentTypesQuery,
+} from '$lib/sanity.client';
+import type {
+	GetEntryBySlugAndLocaleResult,
+	HeaderInfoQueryResult,
+	SluggableContentTypesQueryResult,
+} from '$lib/sanity.types';
 
 const hrefLangs: Record<string, string> = {
 	en: 'en-US',
@@ -25,22 +30,30 @@ export const load: LayoutServerLoad = async ({ params }) => {
 		href: locale.code,
 		hreflang: hrefLangs[locale.code] ?? locale.code,
 	}));
-	let entry = null;
+	let entry: GetEntryBySlugAndLocaleResult = null;
 
 	if (params.slug) {
-		entry = await getEntry(params.locale, params.slug);
+		const contentTypes: SluggableContentTypesQueryResult = await sanityClient.fetch(
+			sluggableContentTypesQuery,
+		);
 
-		const multiLocaleEntry = await contentfulClient.withAllLocales.getEntry<
-			EntrySkeletonType<LinkablePages>
-		>(entry.sys.id);
+		entry = await sanityClient.fetch(getEntryBySlugAndLocale, {
+			types: contentTypes,
+			locale: params.locale,
+			slug: params.slug,
+		});
+
+		if (!entry) {
+			throw error(404);
+		}
 
 		const localeMap = Object.fromEntries(languages.map((locale) => [locale.code, locale.title]));
 
-		alternateTranslations = Object.entries(multiLocaleEntry.fields.slug).map(([key, value]) => ({
-			code: key,
-			href: value ?? key,
-			name: localeMap[key] ?? key,
-			hreflang: hrefLangs[key] ?? key,
+		alternateTranslations = (entry.slugs ?? []).map(({ code, slug }) => ({
+			code,
+			href: slug!,
+			name: localeMap[code] ?? code,
+			hreflang: hrefLangs[code] ?? code,
 		}));
 	}
 
@@ -56,6 +69,5 @@ async function loadHeaderInfo(locale: string) {
 		locale,
 	});
 
-
-	return sanityHeader
+	return sanityHeader;
 }

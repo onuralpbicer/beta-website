@@ -493,10 +493,233 @@ export type HeaderInfoQueryResult = {
 	> | null;
 } | null;
 
+// Source: ../src/lib/sanity.client.ts
+// Variable: sluggableContentTypesQuery
+// Query: array::unique(  *[    defined(slug) &&    count(slug) > 0  ]._type)
+export type SluggableContentTypesQueryResult = Array<
+	| 'homePage'
+	| 'productCategoriesPage'
+	| 'productPage'
+	| 'productSubcategoriesPage'
+	| 'richTextPage'
+	| 'servicesPage'
+>;
+
+// Source: ../src/lib/sanity.client.ts
+// Variable: getEntryBySlugAndLocale
+// Query: *[  _type in $types &&  coalesce(slug[_key == $locale][0].value, slug[_key == $locale][0].value) == $slug]{  _id,  _type,  "title": coalesce(    title[_key == $locale][0].value,    title[_key == "tr"][0].value  ),  "metaDescription": coalesce(    metaDescription[_key == $locale][0].value,    metaDescription[_key == "tr"][0].value  ),  "slug": coalesce(    slug[_key == $locale][0].value,    slug[_key == "tr"][0].value  ),  "slugs": slug[]{    "code": _key,    "slug": value  },	// Type-specific payload  "page": select(    _type == "richTextPage" => {      "content": coalesce(        content[_key == $locale][0].value,        content[_key == "tr"][0].value      )    },    _type == "homePage" => {      "heroTitle": coalesce(heroTitle[_key == $locale][0].value, heroTitle[_key == "tr"][0].value),      "heroDescription": coalesce(heroDescription[_key == $locale][0].value, heroDescription[_key == "tr"][0].value),      heroImage{ asset->{ url } },      "linkText": coalesce(linkText[_key == $locale][0].value, linkText[_key == "tr"][0].value),      linkTo->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      }    },    _type == "productCategoriesPage" => {      image{ asset->{ url } },      products[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      }    },    _type == "productSubcategoriesPage" => {      image{ asset->{ url } },      products[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      }    },    _type == "servicesPage" => {      products[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      }    },    _type == "productPage" => {      // add productPage fields here when you model them    },    // default    {}  )}[0]
+export type GetEntryBySlugAndLocaleResult =
+	| {
+			_id: string;
+			_type: 'appHeader';
+			title: null;
+			metaDescription: null;
+			slug: null;
+			slugs: null;
+			page: {};
+	  }
+	| {
+			_id: string;
+			_type: 'footer';
+			title: null;
+			metaDescription: null;
+			slug: null;
+			slugs: null;
+			page: {};
+	  }
+	| {
+			_id: string;
+			_type: 'footerColumn';
+			title: string | null;
+			metaDescription: null;
+			slug: null;
+			slugs: null;
+			page: {};
+	  }
+	| {
+			_id: string;
+			_type: 'homePage';
+			title: string | null;
+			metaDescription: string | null;
+			slug: string | null;
+			slugs: Array<{
+				code: string;
+				slug: string | null;
+			}>;
+			page: {
+				heroTitle: string | null;
+				heroDescription: string | null;
+				heroImage: {
+					asset: {
+						url: string | null;
+					} | null;
+				};
+				linkText: string | null;
+				linkTo:
+					| {
+							_type: 'productCategoriesPage';
+							slug: string | null;
+							title: string | null;
+					  }
+					| {
+							_type: 'productPage';
+							slug: string | null;
+							title: string | null;
+					  }
+					| {
+							_type: 'productSubcategoriesPage';
+							slug: string | null;
+							title: string | null;
+					  }
+					| {
+							_type: 'richTextPage';
+							slug: string | null;
+							title: string | null;
+					  }
+					| {
+							_type: 'servicesPage';
+							slug: string | null;
+							title: string | null;
+					  };
+			};
+	  }
+	| {
+			_id: string;
+			_type: 'productCategoriesPage';
+			title: string | null;
+			metaDescription: string | null;
+			slug: string | null;
+			slugs: Array<{
+				code: string;
+				slug: string | null;
+			}>;
+			page: {
+				image: {
+					asset: {
+						url: string | null;
+					} | null;
+				};
+				products: Array<{
+					_type: 'productPage';
+					slug: string | null;
+					title: string | null;
+				}>;
+			};
+	  }
+	| {
+			_id: string;
+			_type: 'productPage';
+			title: string | null;
+			metaDescription: string | null;
+			slug: string | null;
+			slugs: Array<{
+				code: string;
+				slug: string | null;
+			}>;
+			page: {};
+	  }
+	| {
+			_id: string;
+			_type: 'productSubcategoriesPage';
+			title: string | null;
+			metaDescription: string | null;
+			slug: string | null;
+			slugs: Array<{
+				code: string;
+				slug: string | null;
+			}>;
+			page: {
+				image: {
+					asset: {
+						url: string | null;
+					} | null;
+				};
+				products: Array<{
+					_type: 'productPage';
+					slug: string | null;
+					title: string | null;
+				}>;
+			};
+	  }
+	| {
+			_id: string;
+			_type: 'richTextPage';
+			title: string | null;
+			metaDescription: string | null;
+			slug: string | null;
+			slugs: Array<{
+				code: string;
+				slug: string | null;
+			}>;
+			page: {
+				content: BlockContent | null;
+			};
+	  }
+	| {
+			_id: string;
+			_type: 'sanity.fileAsset';
+			title: null;
+			metaDescription: null;
+			slug: null;
+			slugs: null;
+			page: {};
+	  }
+	| {
+			_id: string;
+			_type: 'sanity.imageAsset';
+			title: null;
+			metaDescription: null;
+			slug: null;
+			slugs: null;
+			page: {};
+	  }
+	| {
+			_id: string;
+			_type: 'servicesPage';
+			title: string | null;
+			metaDescription: string | null;
+			slug: string | null;
+			slugs: Array<{
+				code: string;
+				slug: string | null;
+			}>;
+			page: {
+				products: Array<
+					| {
+							_type: 'productCategoriesPage';
+							slug: string | null;
+							title: string | null;
+					  }
+					| {
+							_type: 'productPage';
+							slug: string | null;
+							title: string | null;
+					  }
+					| {
+							_type: 'productSubcategoriesPage';
+							slug: string | null;
+							title: string | null;
+					  }
+				>;
+			};
+	  }
+	| {
+			_id: string;
+			_type: 'whyUs';
+			title: null;
+			metaDescription: null;
+			slug: null;
+			slugs: null;
+			page: {};
+	  }
+	| null;
+
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
 	interface SanityQueries {
 		'*[_type == "appHeader"][0]{\n  logo{ asset->{ url } },\n  headerLinks[]->{\n    _type,\n    "title": title[_key == $locale][0].value,\n    "slug": slug[_key == $locale][0].value\n  }\n}': HeaderInfoQueryResult;
+		'array::unique(\n  *[\n    defined(slug) &&\n    count(slug) > 0\n  ]._type\n)': SluggableContentTypesQueryResult;
+		'*[\n  _type in $types &&\n  coalesce(slug[_key == $locale][0].value, slug[_key == $locale][0].value) == $slug\n]{\n  _id,\n  _type,\n  "title": coalesce(\n    title[_key == $locale][0].value,\n    title[_key == "tr"][0].value\n  ),\n  "metaDescription": coalesce(\n    metaDescription[_key == $locale][0].value,\n    metaDescription[_key == "tr"][0].value\n  ),\n  "slug": coalesce(\n    slug[_key == $locale][0].value,\n    slug[_key == "tr"][0].value\n  ),\n  "slugs": slug[]{\n    "code": _key,\n    "slug": value\n  },\n\t// Type-specific payload\n  "page": select(\n    _type == "richTextPage" => {\n      "content": coalesce(\n        content[_key == $locale][0].value,\n        content[_key == "tr"][0].value\n      )\n    },\n\n    _type == "homePage" => {\n      "heroTitle": coalesce(heroTitle[_key == $locale][0].value, heroTitle[_key == "tr"][0].value),\n      "heroDescription": coalesce(heroDescription[_key == $locale][0].value, heroDescription[_key == "tr"][0].value),\n      heroImage{ asset->{ url } },\n      "linkText": coalesce(linkText[_key == $locale][0].value, linkText[_key == "tr"][0].value),\n      linkTo->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "productCategoriesPage" => {\n      image{ asset->{ url } },\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "productSubcategoriesPage" => {\n      image{ asset->{ url } },\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "servicesPage" => {\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "productPage" => {\n      // add productPage fields here when you model them\n    },\n\n    // default\n    {}\n\n  )\n}[0]': GetEntryBySlugAndLocaleResult;
 	}
 }

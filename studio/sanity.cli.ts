@@ -17,5 +17,6 @@ export default defineCliConfig({
     schema: 'schema.json', // path to your schema file, generated with 'sanity schema extract' command
     generates: '../src/lib/sanity.types.ts', // path to the output file for generated type definitions
     overloadClientMethods: true, // set to false to disable automatic overloading the sanity client
+    formatGeneratedCode: true,
   },
 })

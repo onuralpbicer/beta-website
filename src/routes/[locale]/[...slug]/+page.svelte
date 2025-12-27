@@ -3,17 +3,22 @@
     import HomePage from '$lib/pages/home-page.svelte'
     import RichTextPage from '$lib/pages/rich-text-page.svelte'
     import type {IHomePageEntry, IRichTextPageEntry} from "$lib/contentful";
+    import {dateFieldAttrs} from "bits-ui/dist/bits/date-field/date-field.svelte";
 
     let {data, params}: PageProps = $props();
 
-    const homePage = $derived(() => data.entry as IHomePageEntry)
-    const richTextPage = $derived(() => data.entry as IRichTextPageEntry)
+
+    if (data.entry && data.entry._type === 'homePage') {
+        data.entry.
+    }
 </script>
 
-{#if data.entry?.sys.contentType.sys.id === 'homePage'}
-    <HomePage home={homePage()} locale={params.locale}/>
-{:else if (data.entry?.sys.contentType.sys.id === 'richTextPage') }
-    <RichTextPage richText={richTextPage()}/>
-{:else}
-    {data.entry?.sys.contentType.sys.id}
+{#if data.entry}
+    {#if data.entry._type === 'homePage'}
+        <HomePage home={data.entry} locale={params.locale}/>
+    {:else if (data.entry._type === 'richTextPage') }
+        <RichTextPage richText={data.entry}/>
+    {:else}
+        {data.entry._type}
+    {/if}
 {/if}
