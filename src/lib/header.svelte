@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {AlternateTranslation, IHeaderInfo} from '$lib/model';
+    import type {AlternateTranslation,} from '$lib/model';
     import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
     import {Button} from "$lib/components/ui/button/index.js";
     import {Menu} from '@lucide/svelte'
