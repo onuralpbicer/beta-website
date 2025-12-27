@@ -23,7 +23,7 @@
         {/each}
         <link rel="alternate" hreflang="x-default" href={`${page.url.origin}/${mainLang().code}/${mainLang().href}`}/>
 
-        <meta name="description" content={data.entry.fields.metaDescription}/>
-        <title>Beta Mühendislik - {data.entry.fields.title}</title>
+        <meta name="description" content={data.entry.metaDescription}/>
+        <title>Beta Mühendislik - {data.entry.title}</title>
     {/if}
 </svelte:head>

@@ -1,11 +1,15 @@
 import { createClient } from '@sanity/client';
 import groq from 'groq';
 import type { GetHomePageQueryResult } from '$lib/sanity.types';
+import { PREVIEW_TOKEN } from '$env/static/private';
 
 export const sanityClient = createClient({
 	projectId: '12mm2gbu',
 	dataset: 'production',
-	useCdn: true,
+	apiVersion: 'v2021-10-21',
+	useCdn: !PREVIEW_TOKEN,
+	perspective: PREVIEW_TOKEN ? 'drafts' : 'published',
+	token: PREVIEW_TOKEN,
 });
 
 export async function getHomePageUrl(locale: string) {
