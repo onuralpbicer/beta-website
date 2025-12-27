@@ -44,16 +44,11 @@ export default defineType({
     }),
     defineField({
       name: 'linkText',
-      type: 'internationalizedArrayString',
-      validation: (r) => r.required(),
-    }),
-
-    defineField({
-      name: 'featuredTitle',
       title: 'Link Yazısı',
       type: 'internationalizedArrayString',
       validation: (r) => r.required(),
     }),
+
     defineField({
       name: 'featured',
       title: 'Öne Çıkanlar',
@@ -73,8 +68,8 @@ export default defineType({
 
     defineField({
       name: 'whyUsTitle',
-      title: 'Öne Çıkanlar Başlığı',
-      type: 'string',
+      title: 'Neden Biz Başlığı',
+      type: 'internationalizedArrayString',
       validation: (r) => r.required(),
     }),
     defineField({
