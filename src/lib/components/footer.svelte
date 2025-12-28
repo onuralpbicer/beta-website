@@ -10,7 +10,8 @@
 </script>
 
 <footer class="bg-primary mt-4 text-primary-foreground pt-4 md:pt-8">
-    <section class="mx-auto w-full md:max-w-[70vw] px-4 md:px-0 flex justify-around flex-wrap">
+    <section
+            class="mx-auto w-full md:max-w-[70vw] px-4 md:px-0 flex justify-around lg:justify-center lg:gap-16 flex-wrap">
         {#each footer?.footerColumns as column}
             <div class="flex flex-col">
                 <h5 class="heading-5">
