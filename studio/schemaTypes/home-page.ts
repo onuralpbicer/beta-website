@@ -24,7 +24,7 @@ export default defineType({
     }),
     defineField({
       name: 'heroDescription',
-      title: 'name',
+      title: 'Ana Altyazı',
       type: 'internationalizedArrayString',
       validation: (r) => r.required(),
     }),
@@ -45,6 +45,17 @@ export default defineType({
     defineField({
       name: 'linkText',
       title: 'Link Yazısı',
+      type: 'internationalizedArrayString',
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: 'keywords',
+      title: 'Anahtar Kelimeler',
+      type: 'internationalizedArrayString',
+    }),
+    defineField({
+      name: 'featuredTitle',
+      title: 'Öne Çıkanlar Başlığı',
       type: 'internationalizedArrayString',
       validation: (r) => r.required(),
     }),

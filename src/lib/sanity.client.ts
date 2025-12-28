@@ -75,7 +75,26 @@ export const getEntryBySlugAndLocale = groq`*[
         _type,
         "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
         "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)
-      }
+      },
+			"featuredTitle": coalesce(featuredTitle[_key == $locale][0].value, featuredTitle[_key == "tr"][0].value),
+      featured[]->{
+        _type,
+        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
+        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),
+        "image": select(
+          defined(image) => image.asset->url,
+          null
+        )
+      },
+      "whyUsTitle": coalesce(whyUsTitle[_key == $locale][0].value, whyUsTitle[_key == "tr"][0].value),
+			whyUs[]->{
+        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),
+				iconName,
+      },
+     "keywords": string::split(
+        coalesce(keywords[_key == $locale][0].value, keywords[_key == "tr"][0].value),
+        ","
+      )
     },
 
     _type == "productCategoriesPage" => {

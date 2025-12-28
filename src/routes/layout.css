@@ -90,4 +90,8 @@
     .heading-1 {
         @apply text-4xl font-bold tracking-tight;
     }
+
+    .heading-2 {
+        @apply text-2xl font-bold tracking-tight;
+    }
 }

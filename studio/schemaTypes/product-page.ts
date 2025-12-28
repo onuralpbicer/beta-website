@@ -8,6 +8,13 @@ export default defineType({
   preview: pagePreview,
   fields: [
     ...pageFields,
+    defineField({
+      name: 'image',
+      type: 'image',
+      title: 'Görsel',
+      options: {hotspot: true},
+      validation: (r) => r.required(),
+    }),
     // todo later
   ],
 })
