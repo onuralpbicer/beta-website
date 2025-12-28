@@ -1,7 +1,7 @@
 <script lang="ts">
     import type {AlternateTranslation,} from '$lib/model';
-    import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
-    import {Button} from "$lib/components/ui/button/index.js";
+    import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
+    import {Button} from "$lib/components/ui/button";
     import {Menu} from '@lucide/svelte'
     import type {HeaderInfoQueryResult} from "$lib/sanity.types";
 

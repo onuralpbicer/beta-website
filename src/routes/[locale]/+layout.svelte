@@ -1,7 +1,8 @@
 <script lang="ts">
     import type {LayoutProps} from './$types';
-    import Header from '$lib/header.svelte'
+    import Header from '$lib/components/header.svelte'
     import {page} from '$app/state'
+    import Footer from "$lib/components/footer.svelte";
 
     let {data, children, params}: LayoutProps = $props();
 
@@ -11,8 +12,8 @@
 </script>
 
 <Header headerInfo={data.header} locale={params.locale} translations={data.alternateTranslations}/>
-<main>{@render children()}</main>
-<footer>footer</footer>
+<main class="grow">{@render children()}</main>
+<Footer footer={data.footer} locale={params.locale}/>
 <svelte:head>
     {#if data.entry}
         <link rel="canonical" href={`${page.url.origin}/${canonicalLang().code}/${canonicalLang().href}`}/>

@@ -3,6 +3,7 @@ import { error, redirect } from '@sveltejs/kit';
 import { languages } from '../../../config';
 import {
 	getEntryBySlugAndLocale,
+	getFooterQuery,
 	getHomePageUrl,
 	headerInfoQuery,
 	sanityClient,
@@ -10,7 +11,6 @@ import {
 } from '$lib/sanity.client';
 import type {
 	GetEntryBySlugAndLocaleResult,
-	HeaderInfoQueryResult,
 	SluggableContentTypesQueryResult,
 } from '$lib/sanity.types';
 
@@ -58,16 +58,13 @@ export const load: LayoutServerLoad = async ({ params }) => {
 	}
 
 	return {
-		header: await loadHeaderInfo(params.locale),
+		header: await sanityClient.fetch(headerInfoQuery, {
+			locale: params.locale,
+		}),
+		footer: await sanityClient.fetch(getFooterQuery, {
+			locale: params.locale,
+		}),
 		alternateTranslations,
 		entry,
 	};
 };
-
-async function loadHeaderInfo(locale: string) {
-	const sanityHeader: HeaderInfoQueryResult = await sanityClient.fetch(headerInfoQuery, {
-		locale,
-	});
-
-	return sanityHeader;
-}

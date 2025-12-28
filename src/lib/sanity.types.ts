@@ -758,6 +758,20 @@ export type GetEntriesQueryResult = Array<{
 	slug: string | null;
 } | null>;
 
+// Source: ..\src\lib\sanity.client.ts
+// Variable: getFooterQuery
+// Query: *[_type == 'footer']{  copyright,  footerColumns[]-> {    "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),    links[]-> {      "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),      "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),    }  }}[0]
+export type GetFooterQueryResult = {
+	copyright: string | null;
+	footerColumns: Array<{
+		title: string | null;
+		links: Array<{
+			title: string | null;
+			slug: string | null;
+		}> | null;
+	}> | null;
+} | null;
+
 // Query TypeMap
 import '@sanity/client';
 declare module '@sanity/client' {
@@ -767,5 +781,6 @@ declare module '@sanity/client' {
 		'*[\n  _type in $types &&\n  coalesce(slug[_key == $locale][0].value, slug[_key == $locale][0].value) == $slug\n]{\n  _id,\n  _type,\n  "title": coalesce(\n    title[_key == $locale][0].value,\n    title[_key == "tr"][0].value\n  ),\n  "metaDescription": coalesce(\n    metaDescription[_key == $locale][0].value,\n    metaDescription[_key == "tr"][0].value\n  ),\n  "slug": coalesce(\n    slug[_key == $locale][0].value,\n    slug[_key == "tr"][0].value\n  ),\n  "slugs": slug[]{\n    "code": _key,\n    "slug": value\n  },\n\t// Type-specific payload\n  "page": select(\n    _type == "richTextPage" => {\n      "content": coalesce(\n        content[_key == $locale][0].value,\n        content[_key == "tr"][0].value\n      )\n    },\n\n    _type == "homePage" => {\n      "heroTitle": coalesce(heroTitle[_key == $locale][0].value, heroTitle[_key == "tr"][0].value),\n      "heroDescription": coalesce(heroDescription[_key == $locale][0].value, heroDescription[_key == "tr"][0].value),\n      heroImage{ asset->{ url } },\n      "linkText": coalesce(linkText[_key == $locale][0].value, linkText[_key == "tr"][0].value),\n      linkTo->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      },\n\t\t\t"featuredTitle": coalesce(featuredTitle[_key == $locale][0].value, featuredTitle[_key == "tr"][0].value),\n      featured[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n        "image": select(\n          defined(image) => image.asset->url,\n          null\n        )\n      },\n      "whyUsTitle": coalesce(whyUsTitle[_key == $locale][0].value, whyUsTitle[_key == "tr"][0].value),\n\t\t\twhyUs[]->{\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n\t\t\t\ticonName,\n      },\n     "keywords": string::split(\n        coalesce(keywords[_key == $locale][0].value, keywords[_key == "tr"][0].value),\n        ","\n      )\n    },\n\n    _type == "productCategoriesPage" => {\n      image{ asset->{ url } },\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "productSubcategoriesPage" => {\n      image{ asset->{ url } },\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "servicesPage" => {\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "productPage" => {\n      // add productPage fields here when you model them\n    },\n\n    // default\n    {}\n\n  )\n}[0]': GetEntryBySlugAndLocaleResult;
 		'*[_type == \'homePage\']{\n  "slug": slug[_key == $locale][0].value\n}[0]': GetHomePageQueryResult;
 		'*[defined(slug) && count(slug) > 0].slug[]{\n  "locale": _key,\n  "slug": value\n}': GetEntriesQueryResult;
+		'*[_type == \'footer\']{\n  copyright,\n  footerColumns[]-> {\n    "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n    links[]-> {\n      "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n      "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n    }\n  }\n}[0]': GetFooterQueryResult;
 	}
 }

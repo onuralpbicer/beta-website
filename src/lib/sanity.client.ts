@@ -141,3 +141,14 @@ export const getEntriesQuery = groq`*[defined(slug) && count(slug) > 0].slug[]{
   "locale": _key,
   "slug": value
 }`;
+
+export const getFooterQuery = groq`*[_type == 'footer']{
+  copyright,
+  footerColumns[]-> {
+    "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),
+    links[]-> {
+      "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),
+      "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
+    }
+  }
+}[0]`;

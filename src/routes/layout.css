@@ -94,4 +94,8 @@
     .heading-2 {
         @apply text-2xl font-bold tracking-tight;
     }
+
+    .heading-5 {
+        @apply font-bold tracking-tight;
+    }
 }

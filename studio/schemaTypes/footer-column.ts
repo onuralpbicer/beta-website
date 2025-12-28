@@ -4,6 +4,12 @@ export default defineType({
   name: 'footerColumn',
   title: 'Altbilgi Sütunu',
   type: 'document',
+  preview: {
+    select: {
+      title: 'title.[1].value',
+      subtitle: 'title.[0].value',
+    },
+  },
   fields: [
     defineField({
       name: 'title',
