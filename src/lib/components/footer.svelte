@@ -23,7 +23,7 @@
             </div>
         {/each}
     </section>
-    <div class="text-center mt-8 md:mt-12 text-sm">
+    <div class="text-center mt-8 md:mt-12 text-sm mb-1">
         <a href={`/${locale}`}>
             {footer?.copyright} &#169; {year}
         </a>
