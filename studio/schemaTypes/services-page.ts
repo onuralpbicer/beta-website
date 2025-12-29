@@ -1,5 +1,5 @@
-import {defineType, defineField} from 'sanity'
-import {pageFields, pagePreview} from './shared'
+import {defineType} from 'sanity'
+import {pageFields, pagePreview, productListFields} from './shared'
 
 export default defineType({
   name: 'servicesPage',
@@ -9,23 +9,10 @@ export default defineType({
   preview: pagePreview,
   fields: [
     ...pageFields,
-
-    defineField({
-      name: 'products',
-      title: 'Ürün kategorileri, alt kategorileri veya ürünler',
-      type: 'array',
-      of: [
-        defineField({
-          type: 'reference',
-          name: 'products',
-          to: [
-            {type: 'productCategoriesPage'},
-            {type: 'productSubcategoriesPage'},
-            {type: 'productPage'},
-          ],
-        }),
-      ],
-      validation: (r) => r.required().min(1),
-    }),
+    ...productListFields('Ürün kategorileri, alt kategorileri veya ürünler', [
+      'productCategoriesPage',
+      'productSubcategoriesPage',
+      'productPage',
+    ]),
   ],
 })

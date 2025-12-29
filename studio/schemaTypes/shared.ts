@@ -30,6 +30,43 @@ export const pageFields = [
   }),
 ]
 
+export const productOrCategoryFields = [
+  defineField({
+    name: 'image',
+    type: 'image',
+    title: 'Görsel',
+    options: {hotspot: true},
+    validation: (r) => r.required(),
+  }),
+  defineField({
+    name: 'tags',
+    title: 'Tagler',
+    type: 'internationalizedArrayString',
+  }),
+]
+
+export const productListFields = (title: string, allowedTypes: string[]) => [
+  defineField({
+    name: 'description',
+    title: 'Tanım',
+    type: 'internationalizedArrayString',
+    validation: (r) => r.required(),
+  }),
+  defineField({
+    name: 'products',
+    title,
+    type: 'array',
+    of: [
+      defineField({
+        type: 'reference',
+        name: 'products',
+        to: allowedTypes.map((type) => ({type})),
+      }),
+    ],
+    validation: (r) => r.required().min(1),
+  }),
+]
+
 export const blockContent = defineType({
   name: 'blockContent',
   type: 'array',

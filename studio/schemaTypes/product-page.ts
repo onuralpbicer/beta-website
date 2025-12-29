@@ -1,5 +1,5 @@
-import {defineField, defineType} from 'sanity'
-import {pageFields, pagePreview} from './shared'
+import {defineType} from 'sanity'
+import {pageFields, pagePreview, productOrCategoryFields} from './shared'
 
 export default defineType({
   name: 'productPage',
@@ -8,13 +8,7 @@ export default defineType({
   preview: pagePreview,
   fields: [
     ...pageFields,
-    defineField({
-      name: 'image',
-      type: 'image',
-      title: 'Görsel',
-      options: {hotspot: true},
-      validation: (r) => r.required(),
-    }),
+    ...productOrCategoryFields,
     // todo later
   ],
 })
