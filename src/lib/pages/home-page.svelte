@@ -19,7 +19,7 @@
         <h1 class="heading-1">{home.page.heroTitle}</h1>
         <p class="mt-4">{home.page.heroDescription}</p>
 
-        <a href={`/${locale}/${heroLink()}`}>
+        <a href='/{locale}/{heroLink()}'>
             <Button class="mt-8" variant="secondary">
                 {home.page.linkText}
             </Button>

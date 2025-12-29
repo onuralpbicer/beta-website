@@ -16,13 +16,13 @@
 <Footer footer={data.footer} locale={params.locale}/>
 <svelte:head>
     {#if data.entry}
-        <link rel="canonical" href={`${page.url.origin}/${canonicalLang().code}/${canonicalLang().href}`}/>
+        <link rel="canonical" href='{page.url.origin}/{canonicalLang().code}/{canonicalLang().href}'/>
 
         {#each data.alternateTranslations as translation}
             <link rel="alternate" hreflang={translation.hreflang}
-                  href={`${page.url.origin}/${translation.code}/${translation.href}`}/>
+                  href='{page.url.origin}/{translation.code}/{translation.href}'/>
         {/each}
-        <link rel="alternate" hreflang="x-default" href={`${page.url.origin}/${mainLang().code}/${mainLang().href}`}/>
+        <link rel="alternate" hreflang="x-default" href='{page.url.origin}/{mainLang().code}/{mainLang().href}'/>
 
         <meta name="description" content={data.entry.metaDescription}/>
         <title>Beta Mühendislik - {data.entry.title}</title>

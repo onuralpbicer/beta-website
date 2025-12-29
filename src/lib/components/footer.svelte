@@ -18,13 +18,13 @@
                     {column.title}
                 </h5>
                 {#each column.links as link}
-                    <a href={`/${locale}/${link.slug}`}>{link.title}</a>
+                    <a href='/{locale}/{link.slug}'>{link.title}</a>
                 {/each}
             </div>
         {/each}
     </section>
     <div class="text-center mt-8 md:mt-12 text-sm mb-1">
-        <a href={`/${locale}`}>
+        <a href='/{locale}'>
             {footer?.copyright} &#169; {year}
         </a>
     </div>
