@@ -27,9 +27,9 @@
     </div>
 </section>
 <section>
-    <div class="mx-8 flex items-center justify-center gap-2 md:gap-4 mt-4">
+    <div class="mx-2 flex items-center justify-center gap-2 md:gap-4 mt-4 flex-wrap">
         {#each home.page.keywords as keyword}
-            <span class="shadow-md border-gray-400 border px-2 rounded-md">{keyword}</span>
+            <span class="shadow-md border-gray-400 border px-2 rounded-md text-nowrap">{keyword}</span>
         {/each}
     </div>
 </section>
