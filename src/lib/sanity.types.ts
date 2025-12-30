@@ -20,6 +20,14 @@ export type SanityImageAssetReference = {
 	[internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
 };
 
+export type Image1 = {
+	asset?: SanityImageAssetReference;
+	media?: unknown; // Unable to locate the referenced type "media" in schema
+	hotspot?: SanityImageHotspot;
+	crop?: SanityImageCrop;
+	_type: 'image';
+};
+
 export type RichTextPageReference = {
 	_ref: string;
 	_type: 'reference';
@@ -115,13 +123,42 @@ export type ProductPage = {
 	title?: InternationalizedArrayString;
 	metaDescription?: InternationalizedArrayString;
 	slug?: InternationalizedArrayString;
-	image?: {
-		asset?: SanityImageAssetReference;
-		media?: unknown;
-		hotspot?: SanityImageHotspot;
-		crop?: SanityImageCrop;
-		_type: 'image';
-	};
+	image?: Image1;
+	tags?: InternationalizedArrayString;
+};
+
+export type ProductSubcategoriesPage = {
+	_id: string;
+	_type: 'productSubcategoriesPage';
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	title?: InternationalizedArrayString;
+	metaDescription?: InternationalizedArrayString;
+	slug?: InternationalizedArrayString;
+	image?: Image1;
+	tags?: InternationalizedArrayString;
+	description?: InternationalizedArrayString;
+	products?: Array<
+		{
+			_key: string;
+		} & ProductPageReference
+	>;
+};
+
+export type ProductCategoriesPage = {
+	_id: string;
+	_type: 'productCategoriesPage';
+	_createdAt: string;
+	_updatedAt: string;
+	_rev: string;
+	title?: InternationalizedArrayString;
+	metaDescription?: InternationalizedArrayString;
+	slug?: InternationalizedArrayString;
+	image?: Image1;
+	tags?: InternationalizedArrayString;
+	description?: InternationalizedArrayString;
+	products?: Array<ProductSubcategoriesPageReference | ProductPageReference>;
 };
 
 export type SanityImageCrop = {
@@ -140,52 +177,6 @@ export type SanityImageHotspot = {
 	width?: number;
 };
 
-export type ProductSubcategoriesPage = {
-	_id: string;
-	_type: 'productSubcategoriesPage';
-	_createdAt: string;
-	_updatedAt: string;
-	_rev: string;
-	title?: InternationalizedArrayString;
-	metaDescription?: InternationalizedArrayString;
-	slug?: InternationalizedArrayString;
-	image?: {
-		asset?: SanityImageAssetReference;
-		media?: unknown;
-		hotspot?: SanityImageHotspot;
-		crop?: SanityImageCrop;
-		_type: 'image';
-	};
-	products?: Array<
-		{
-			_key: string;
-		} & ProductPageReference
-	>;
-};
-
-export type ProductCategoriesPage = {
-	_id: string;
-	_type: 'productCategoriesPage';
-	_createdAt: string;
-	_updatedAt: string;
-	_rev: string;
-	title?: InternationalizedArrayString;
-	metaDescription?: InternationalizedArrayString;
-	slug?: InternationalizedArrayString;
-	image?: {
-		asset?: SanityImageAssetReference;
-		media?: unknown;
-		hotspot?: SanityImageHotspot;
-		crop?: SanityImageCrop;
-		_type: 'image';
-	};
-	products?: Array<
-		{
-			_key: string;
-		} & ProductPageReference
-	>;
-};
-
 export type ServicesPage = {
 	_id: string;
 	_type: 'servicesPage';
@@ -195,6 +186,7 @@ export type ServicesPage = {
 	title?: InternationalizedArrayString;
 	metaDescription?: InternationalizedArrayString;
 	slug?: InternationalizedArrayString;
+	description?: InternationalizedArrayString;
 	products?: Array<
 		ProductCategoriesPageReference | ProductSubcategoriesPageReference | ProductPageReference
 	>;
@@ -420,6 +412,7 @@ export type Slug = {
 
 export type AllSanitySchemaTypes =
 	| SanityImageAssetReference
+	| Image1
 	| RichTextPageReference
 	| ServicesPageReference
 	| ProductCategoriesPageReference
@@ -429,10 +422,10 @@ export type AllSanitySchemaTypes =
 	| HomePage
 	| InternationalizedArrayString
 	| ProductPage
-	| SanityImageCrop
-	| SanityImageHotspot
 	| ProductSubcategoriesPage
 	| ProductCategoriesPage
+	| SanityImageCrop
+	| SanityImageHotspot
 	| ServicesPage
 	| RichTextPage
 	| InternationalizedArrayBlockContent
@@ -508,7 +501,7 @@ export type SluggableContentTypesQueryResult = Array<
 
 // Source: ..\src\lib\sanity.client.ts
 // Variable: getEntryBySlugAndLocale
-// Query: *[  _type in $types &&  coalesce(slug[_key == $locale][0].value, slug[_key == $locale][0].value) == $slug]{  _id,  _type,  "title": coalesce(    title[_key == $locale][0].value,    title[_key == "tr"][0].value  ),  "metaDescription": coalesce(    metaDescription[_key == $locale][0].value,    metaDescription[_key == "tr"][0].value  ),  "slug": coalesce(    slug[_key == $locale][0].value,    slug[_key == "tr"][0].value  ),  "slugs": slug[]{    "code": _key,    "slug": value  },	// Type-specific payload  "page": select(    _type == "richTextPage" => {      "content": coalesce(        content[_key == $locale][0].value,        content[_key == "tr"][0].value      )    },    _type == "homePage" => {      "heroTitle": coalesce(heroTitle[_key == $locale][0].value, heroTitle[_key == "tr"][0].value),      "heroDescription": coalesce(heroDescription[_key == $locale][0].value, heroDescription[_key == "tr"][0].value),      heroImage{ asset->{ url } },      "linkText": coalesce(linkText[_key == $locale][0].value, linkText[_key == "tr"][0].value),      linkTo->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      },			"featuredTitle": coalesce(featuredTitle[_key == $locale][0].value, featuredTitle[_key == "tr"][0].value),      featured[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),        "image": select(          defined(image) => image.asset->url,          null        )      },      "whyUsTitle": coalesce(whyUsTitle[_key == $locale][0].value, whyUsTitle[_key == "tr"][0].value),			whyUs[]->{        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),				iconName,      },     "keywords": string::split(        coalesce(keywords[_key == $locale][0].value, keywords[_key == "tr"][0].value),        ","      )    },    _type == "productCategoriesPage" => {      image{ asset->{ url } },      products[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      }    },    _type == "productSubcategoriesPage" => {      image{ asset->{ url } },      products[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      }    },    _type == "servicesPage" => {      products[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      }    },    _type == "productPage" => {      // add productPage fields here when you model them    },    // default    {}  )}[0]
+// Query: *[  _type in $types &&  coalesce(slug[_key == $locale][0].value, slug[_key == $locale][0].value) == $slug]{  _id,  _type,  "title": coalesce(    title[_key == $locale][0].value,    title[_key == "tr"][0].value  ),  "metaDescription": coalesce(    metaDescription[_key == $locale][0].value,    metaDescription[_key == "tr"][0].value  ),  "slug": coalesce(    slug[_key == $locale][0].value,    slug[_key == "tr"][0].value  ),  "slugs": slug[]{    "code": _key,    "slug": value  },	// Type-specific payload  "page": select(    _type == "richTextPage" => {      "content": coalesce(        content[_key == $locale][0].value,        content[_key == "tr"][0].value      )    },    _type == "homePage" => {      "heroTitle": coalesce(heroTitle[_key == $locale][0].value, heroTitle[_key == "tr"][0].value),      "heroDescription": coalesce(heroDescription[_key == $locale][0].value, heroDescription[_key == "tr"][0].value),      heroImage{ asset->{ url } },      "linkText": coalesce(linkText[_key == $locale][0].value, linkText[_key == "tr"][0].value),      linkTo->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      },			"featuredTitle": coalesce(featuredTitle[_key == $locale][0].value, featuredTitle[_key == "tr"][0].value),      featured[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),        "image": select(          defined(image) => image.asset->url,          null        )      },      "whyUsTitle": coalesce(whyUsTitle[_key == $locale][0].value, whyUsTitle[_key == "tr"][0].value),			whyUs[]->{        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),				iconName,      },     "keywords": string::split(        coalesce(keywords[_key == $locale][0].value, keywords[_key == "tr"][0].value),        ","      )    },    _type == "productCategoriesPage" => {      image{ asset->{ url } },      products[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      }    },    _type == "productSubcategoriesPage" => {      image{ asset->{ url } },      products[]->{        _type,        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)      }    },    _type == "servicesPage" => {	  "description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),	  products[]->{		_type,		"slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),		"title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),		"description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),		"tags": string::split(coalesce(tags[_key == $locale][0].value, tags[_key == "tr"][0].value), ','),		"image": select(		  defined(image) => image.asset->url,		  null		),		"products": select(		  defined(products) => products[]->{			_type		  },		  null		),	  }	},    _type == "productPage" => {      // add productPage fields here when you model them    },    // default    {}  )}[0]
 export type GetEntryBySlugAndLocaleResult =
 	| {
 			_id: string;
@@ -628,11 +621,18 @@ export type GetEntryBySlugAndLocaleResult =
 						url: string | null;
 					} | null;
 				} | null;
-				products: Array<{
-					_type: 'productPage';
-					slug: string | null;
-					title: string | null;
-				}> | null;
+				products: Array<
+					| {
+							_type: 'productPage';
+							slug: string | null;
+							title: string | null;
+					  }
+					| {
+							_type: 'productSubcategoriesPage';
+							slug: string | null;
+							title: string | null;
+					  }
+				> | null;
 			};
 	  }
 	| {
@@ -713,21 +713,43 @@ export type GetEntryBySlugAndLocaleResult =
 				slug: string | null;
 			}> | null;
 			page: {
+				description: string | null;
 				products: Array<
 					| {
 							_type: 'productCategoriesPage';
 							slug: string | null;
 							title: string | null;
+							description: string | null;
+							tags: Array<string> | null;
+							image: string | null;
+							products: Array<
+								| {
+										_type: 'productPage';
+								  }
+								| {
+										_type: 'productSubcategoriesPage';
+								  }
+							> | null;
 					  }
 					| {
 							_type: 'productPage';
 							slug: string | null;
 							title: string | null;
+							description: null;
+							tags: Array<string> | null;
+							image: string | null;
+							products: null;
 					  }
 					| {
 							_type: 'productSubcategoriesPage';
 							slug: string | null;
 							title: string | null;
+							description: string | null;
+							tags: Array<string> | null;
+							image: string | null;
+							products: Array<{
+								_type: 'productPage';
+							}> | null;
 					  }
 				> | null;
 			};
@@ -778,7 +800,7 @@ declare module '@sanity/client' {
 	interface SanityQueries {
 		'*[_type == "appHeader"][0]{\n  logo{ asset->{ url } },\n  headerLinks[]->{\n    _type,\n    "title": title[_key == $locale][0].value,\n    "slug": slug[_key == $locale][0].value\n  }\n}': HeaderInfoQueryResult;
 		'array::unique(\n  *[\n    defined(slug) &&\n    count(slug) > 0\n  ]._type\n)': SluggableContentTypesQueryResult;
-		'*[\n  _type in $types &&\n  coalesce(slug[_key == $locale][0].value, slug[_key == $locale][0].value) == $slug\n]{\n  _id,\n  _type,\n  "title": coalesce(\n    title[_key == $locale][0].value,\n    title[_key == "tr"][0].value\n  ),\n  "metaDescription": coalesce(\n    metaDescription[_key == $locale][0].value,\n    metaDescription[_key == "tr"][0].value\n  ),\n  "slug": coalesce(\n    slug[_key == $locale][0].value,\n    slug[_key == "tr"][0].value\n  ),\n  "slugs": slug[]{\n    "code": _key,\n    "slug": value\n  },\n\t// Type-specific payload\n  "page": select(\n    _type == "richTextPage" => {\n      "content": coalesce(\n        content[_key == $locale][0].value,\n        content[_key == "tr"][0].value\n      )\n    },\n\n    _type == "homePage" => {\n      "heroTitle": coalesce(heroTitle[_key == $locale][0].value, heroTitle[_key == "tr"][0].value),\n      "heroDescription": coalesce(heroDescription[_key == $locale][0].value, heroDescription[_key == "tr"][0].value),\n      heroImage{ asset->{ url } },\n      "linkText": coalesce(linkText[_key == $locale][0].value, linkText[_key == "tr"][0].value),\n      linkTo->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      },\n\t\t\t"featuredTitle": coalesce(featuredTitle[_key == $locale][0].value, featuredTitle[_key == "tr"][0].value),\n      featured[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n        "image": select(\n          defined(image) => image.asset->url,\n          null\n        )\n      },\n      "whyUsTitle": coalesce(whyUsTitle[_key == $locale][0].value, whyUsTitle[_key == "tr"][0].value),\n\t\t\twhyUs[]->{\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n\t\t\t\ticonName,\n      },\n     "keywords": string::split(\n        coalesce(keywords[_key == $locale][0].value, keywords[_key == "tr"][0].value),\n        ","\n      )\n    },\n\n    _type == "productCategoriesPage" => {\n      image{ asset->{ url } },\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "productSubcategoriesPage" => {\n      image{ asset->{ url } },\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "servicesPage" => {\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "productPage" => {\n      // add productPage fields here when you model them\n    },\n\n    // default\n    {}\n\n  )\n}[0]': GetEntryBySlugAndLocaleResult;
+		'*[\n  _type in $types &&\n  coalesce(slug[_key == $locale][0].value, slug[_key == $locale][0].value) == $slug\n]{\n  _id,\n  _type,\n  "title": coalesce(\n    title[_key == $locale][0].value,\n    title[_key == "tr"][0].value\n  ),\n  "metaDescription": coalesce(\n    metaDescription[_key == $locale][0].value,\n    metaDescription[_key == "tr"][0].value\n  ),\n  "slug": coalesce(\n    slug[_key == $locale][0].value,\n    slug[_key == "tr"][0].value\n  ),\n  "slugs": slug[]{\n    "code": _key,\n    "slug": value\n  },\n\t// Type-specific payload\n  "page": select(\n    _type == "richTextPage" => {\n      "content": coalesce(\n        content[_key == $locale][0].value,\n        content[_key == "tr"][0].value\n      )\n    },\n\n    _type == "homePage" => {\n      "heroTitle": coalesce(heroTitle[_key == $locale][0].value, heroTitle[_key == "tr"][0].value),\n      "heroDescription": coalesce(heroDescription[_key == $locale][0].value, heroDescription[_key == "tr"][0].value),\n      heroImage{ asset->{ url } },\n      "linkText": coalesce(linkText[_key == $locale][0].value, linkText[_key == "tr"][0].value),\n      linkTo->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      },\n\t\t\t"featuredTitle": coalesce(featuredTitle[_key == $locale][0].value, featuredTitle[_key == "tr"][0].value),\n      featured[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n        "image": select(\n          defined(image) => image.asset->url,\n          null\n        )\n      },\n      "whyUsTitle": coalesce(whyUsTitle[_key == $locale][0].value, whyUsTitle[_key == "tr"][0].value),\n\t\t\twhyUs[]->{\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n\t\t\t\ticonName,\n      },\n     "keywords": string::split(\n        coalesce(keywords[_key == $locale][0].value, keywords[_key == "tr"][0].value),\n        ","\n      )\n    },\n\n    _type == "productCategoriesPage" => {\n      image{ asset->{ url } },\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "productSubcategoriesPage" => {\n      image{ asset->{ url } },\n      products[]->{\n        _type,\n        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)\n      }\n    },\n\n    _type == "servicesPage" => {\n\t  "description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),\n\t  products[]->{\n\t\t_type,\n\t\t"slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n\t\t"title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n\t\t"description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),\n\t\t"tags": string::split(coalesce(tags[_key == $locale][0].value, tags[_key == "tr"][0].value), \',\'),\n\t\t"image": select(\n\t\t  defined(image) => image.asset->url,\n\t\t  null\n\t\t),\n\t\t"products": select(\n\t\t  defined(products) => products[]->{\n\t\t\t_type\n\t\t  },\n\t\t  null\n\t\t),\n\t  }\n\t},\n\n    _type == "productPage" => {\n      // add productPage fields here when you model them\n    },\n\n    // default\n    {}\n\n  )\n}[0]': GetEntryBySlugAndLocaleResult;
 		'*[_type == \'homePage\']{\n  "slug": slug[_key == $locale][0].value\n}[0]': GetHomePageQueryResult;
 		'*[defined(slug) && count(slug) > 0].slug[]{\n  "locale": _key,\n  "slug": value\n}': GetEntriesQueryResult;
 		'*[_type == \'footer\']{\n  copyright,\n  footerColumns[]-> {\n    "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n    links[]-> {\n      "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),\n      "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),\n    }\n  }\n}[0]': GetFooterQueryResult;

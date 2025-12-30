@@ -116,12 +116,25 @@ export const getEntryBySlugAndLocale = groq`*[
     },
 
     _type == "servicesPage" => {
-      products[]->{
-        _type,
-        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
-        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value)
-      }
-    },
+	  "description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),
+	  products[]->{
+		_type,
+		"slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
+		"title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),
+		"description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),
+		"tags": string::split(coalesce(tags[_key == $locale][0].value, tags[_key == "tr"][0].value), ','),
+		"image": select(
+		  defined(image) => image.asset->url,
+		  null
+		),
+		"products": select(
+		  defined(products) => products[]->{
+			_type
+		  },
+		  null
+		),
+	  }
+	},
 
     _type == "productPage" => {
       // add productPage fields here when you model them
