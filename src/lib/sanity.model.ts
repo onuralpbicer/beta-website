@@ -15,7 +15,14 @@ export type IServicesPage = Extract<
 	{ _type: 'servicesPage' }
 >;
 
-export type ProductCategoryCard = Extract<
-	NonNullable<IServicesPage['page']['products']>[number],
+export type IProductCategoryPage = Extract<
+	NonNullable<GetEntryBySlugAndLocaleResult>,
 	{ _type: 'productCategoriesPage' }
 >;
+
+export type IProductSubCategoryPage = Extract<
+	NonNullable<GetEntryBySlugAndLocaleResult>,
+	{ _type: 'productSubcategoriesPage' }
+>;
+
+export type IProductListPage = IServicesPage | IProductCategoryPage | IProductSubCategoryPage;

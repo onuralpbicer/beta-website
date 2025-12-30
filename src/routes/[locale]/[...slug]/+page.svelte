@@ -2,7 +2,7 @@
     import type {PageProps} from './$types';
     import HomePage from '$lib/pages/home-page.svelte'
     import RichTextPage from '$lib/pages/rich-text-page.svelte'
-    import ServicesPage from '$lib/pages/services-page.svelte'
+    import ProductListPage from '$lib/pages/product-list-page.svelte'
 
     let {data, params}: PageProps = $props();
 </script>
@@ -12,8 +12,8 @@
         <HomePage home={data.entry} locale={params.locale}/>
     {:else if (data.entry._type === 'richTextPage') }
         <RichTextPage richText={data.entry}/>
-    {:else if (data.entry._type === 'servicesPage') }
-        <ServicesPage services={data.entry} locale={params.locale}/>
+    {:else if (data.entry._type === 'servicesPage' || data.entry._type === 'productCategoriesPage' || data.entry._type === 'productSubcategoriesPage') }
+        <ProductListPage services={data.entry} locale={params.locale}/>
     {:else}
         {data.entry._type}
     {/if}

@@ -1,9 +1,9 @@
 <script lang="ts">
 
-    import type {IServicesPage} from "$lib/sanity.model";
+    import type {IProductListPage} from "$lib/sanity.model";
     import ProductCategoryCard from '$lib/components/product-category-card.svelte'
 
-    let {services, locale}: { services: IServicesPage, locale: string } = $props();
+    let {services, locale}: { services: IProductListPage, locale: string } = $props();
 
     const tags = $derived(() => Array.from(new Set(services.page.products?.flatMap((product) =>
             product.tags?.map((tag) => tag.trim()).filter(Boolean) ?? []
