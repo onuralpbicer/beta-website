@@ -14,10 +14,10 @@
 
 
 <a href={href}>
-    <div class="mt-2 rounded-lg p-2 shadow-md border border-gray-200">
+    <div class="h-full mt-2 rounded-lg p-2 shadow-md border border-gray-200">
         <div class="grid grid-cols-[2fr_4fr_auto] grid-rows-2 gap-2">
             <img alt="{title} thumbnail" class="rounded-md row-span-full h-full object-cover" src={image}/>
-            <h2 class="font-bold grow text-ellipsis whitespace-nowrap overflow-hidden">{title}</h2>
+            <h2 class="font-bold text-xl md:text-2xl grow text-ellipsis whitespace-nowrap overflow-hidden">{title}</h2>
             <span class="row-span-full -col-start-1 place-self-center">
                 <ChevronRightIcon/>
             </span>
