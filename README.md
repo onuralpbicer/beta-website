@@ -1,7 +1,7 @@
 ## Todo
 
 * opengraph integration
-* i18n for hardcoded strings
+* ~~basic i18n for hardcoded strings~~
 * product page
 * clean up rich text pages
 * clean up product list pages in bigger screens

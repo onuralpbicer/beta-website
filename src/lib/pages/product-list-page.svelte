@@ -2,6 +2,7 @@
 
     import type {IProductListPage} from "$lib/sanity.model";
     import ProductCategoryCard from '$lib/components/product-category-card.svelte'
+    import {translate} from "$lib/i18n";
 
     let {services, locale}: { services: IProductListPage, locale: string } = $props();
 
@@ -61,13 +62,13 @@
                     subCategoriesCount = productOrCategory.products?.filter((product) => product._type === 'productSubcategoriesPage').length ?? 0}
                 <ProductCategoryCard href="/{locale}/{productOrCategory.slug}"
                                      image={productOrCategory.image} title={productOrCategory.title}
-                                     subtitle="{itemsCount} items &middot; {subCategoriesCount} subcategories"
+                                     subtitle="{itemsCount} {translate(locale, itemsCount === 1 ? 'item' : 'items')} &middot; {subCategoriesCount} {translate(locale, itemsCount === 1 ? 'subcategory' : 'subcategories')}"
                                      tags={productOrCategory.tags}
                 />
             {:else if productOrCategory._type === 'productSubcategoriesPage'}
                 <ProductCategoryCard href="/{locale}/{productOrCategory.slug}"
                                      image={productOrCategory.image} title={productOrCategory.title}
-                                     subtitle="{itemsCount} items"
+                                     subtitle="{itemsCount} {translate(locale, itemsCount === 1 ? 'item' : 'items')}"
                                      tags={productOrCategory.tags}
                 />
             {:else if productOrCategory._type === 'productPage'}
