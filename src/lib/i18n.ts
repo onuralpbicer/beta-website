@@ -1,6 +1,4 @@
-type Translation = Record<'item' | 'items' | 'subcategory' | 'subcategories', string>;
-
-const translations: Record<string, Translation> = {
+const translations = {
 	en: {
 		item: 'Item',
 		items: 'Items',
@@ -13,11 +11,11 @@ const translations: Record<string, Translation> = {
 		subcategory: 'Alt Kategori',
 		subcategories: 'Alt Kategoriler',
 	},
-};
+} satisfies Record<string, Record<string, string>>;
 
 export function translate(
 	locale: string,
-	key: keyof Translation,
+	key: keyof (typeof translations)['en'],
 	vars: Record<string, string> = {},
 ) {
 	// Let's throw some errors if we're trying to use keys/locales that don't exist.
@@ -26,7 +24,7 @@ export function translate(
 	if (!locale) throw new Error(`no translation for key "${key}"`);
 
 	// Grab the translation from the translations object.
-	let text = translations[locale][key];
+	let text = translations[locale as keyof typeof translations][key];
 
 	if (!text) throw new Error(`no translation found for ${locale}.${key}`);
 
