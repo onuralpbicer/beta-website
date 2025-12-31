@@ -62,7 +62,7 @@
                     subCategoriesCount = productOrCategory.products?.filter((product) => product._type === 'productSubcategoriesPage').length ?? 0}
                 <ProductCategoryCard href="/{locale}/{productOrCategory.slug}"
                                      image={productOrCategory.image} title={productOrCategory.title}
-                                     subtitle="{itemsCount} {translate(locale, itemsCount === 1 ? 'item' : 'items')} &middot; {subCategoriesCount} {translate(locale, itemsCount === 1 ? 'subcategory' : 'subcategories')}"
+                                     subtitle="{itemsCount} {translate(locale, itemsCount === 1 ? 'item' : 'items')} &middot; {subCategoriesCount} {translate(locale, subCategoriesCount === 1 ? 'subcategory' : 'subcategories')}"
                                      tags={productOrCategory.tags}
                 />
             {:else if productOrCategory._type === 'productSubcategoriesPage'}
