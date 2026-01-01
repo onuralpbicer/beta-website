@@ -7,6 +7,10 @@
 * clean up product list pages in bigger screens
     * Add sidebar for lg+ screens with all categories/subcategories/products? maybe
 
+## Todo (optional)
+
+* breadcrumbs on product list pages
+
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a
