@@ -19,7 +19,7 @@ export default defineConfig({
     internationalizedArray({
       languages,
       defaultLanguages: ['en', 'tr'],
-      fieldTypes: ['string', 'blockContent'],
+      fieldTypes: ['string', 'blockContent', 'file', 'number', 'boolean'],
     }),
     trTRLocale(),
   ],
