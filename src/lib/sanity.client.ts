@@ -161,8 +161,38 @@ export const getEntryBySlugAndLocale = groq`*[
 		},
 
     _type == "productPage" => {
-      // add productPage fields here when you model them
-    },
+			"description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),
+			"document": {
+				"url": coalesce(document[_key == $locale][0].value.asset->url, document[_key == "tr"][0].value.asset->url), 
+				"name": coalesce(document[_key == $locale][0].value.asset->originalFilename, document[_key == "tr"][0].value.asset->originalFilename),
+			},
+			"brand": coalesce(brand[_key == $locale][0].value, brand[_key == "tr"][0].value),
+			"productCode": coalesce(productCode[_key == $locale][0].value, productCode[_key == "tr"][0].value),
+			"image": select(
+					defined(image) => image.asset->url,
+					null
+			),
+			"price": {
+				"price": coalesce(price[_key == $locale][0].value, price[_key == "tr"][0].value),
+				"currency": coalesce(currency[_key == $locale][0].value, currency[_key == "tr"][0].value),
+				"taxIncluded": coalesce(taxIncluded[_key == $locale][0].value, taxIncluded[_key == "tr"][0].value),
+			},
+			"keyFeatures": select(
+				$locale == "en" => enKeyFeatures,
+				$locale == "tr" => trKeyFeatures,
+				trKeyFeatures
+			),
+			relatedProducts[]->{
+					"slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
+					"title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),
+					"price": coalesce(price[_key == $locale][0].value, price[_key == "tr"][0].value),
+					"currency": coalesce(currency[_key == $locale][0].value, currency[_key == "tr"][0].value),
+					"image": select(
+						defined(image) => image.asset->url,
+						null
+					),
+			}
+		},
 
     // default
     {}
