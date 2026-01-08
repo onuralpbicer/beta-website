@@ -33,7 +33,7 @@
         {/each}
     </div>
 </section>
-<section class="mx-auto w-full md:max-w-[70vw] px-4 md:px-0">
+<section class="mx-auto w-full md:max-w-[70vw] px-4 md:px-0 mb-4">
     <h2 class="heading-2 my-4">{home.page.featuredTitle}</h2>
     <div class="mx-2 md:mx-4 lg:mx-8 flex items-stretch justify-center gap-4 flex-wrap md:flex-nowrap">
         {#each home.page.featured as featured}

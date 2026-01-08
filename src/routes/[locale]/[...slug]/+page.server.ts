@@ -5,7 +5,9 @@ import type { GetEntriesQueryResult } from '$lib/sanity.types';
 export const entries: EntryGenerator = async () => {
 	const res: GetEntriesQueryResult = await sanityClient.fetch(getEntriesQuery);
 
-	return res.filter(({ slug }) => !!slug).map(({ locale, slug }) => ({ locale, slug: slug! }));
+	return res
+		.filter((result) => !!result?.slug)
+		.map((page) => ({ locale: page!.locale, slug: page!.slug! }));
 };
 
 export const prerender = true;
