@@ -9,7 +9,8 @@
 
 ## Todo (optional)
 
-* breadcrumbs on product list pages
+* breadcrumbs
+* sticky header
 
 ## Developing
 
