@@ -219,3 +219,33 @@ export const getFooterQuery = groq`*[_type == 'footer']{
     }
   }
 }[0]`;
+
+export const getServicesQuery = groq`*[_type == 'servicesPage']{
+  "description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),
+	"slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
+  products[]->{
+    _type,
+    "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
+    "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),
+    "description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),
+    "products": select(
+      defined(products) => products[]->{
+        _type,
+        "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
+        "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),
+        "description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),
+        "products": select(
+          defined(products) => products[]->{
+            _type,
+            "slug": coalesce(slug[_key == $locale][0].value, slug[_key == "tr"][0].value),
+            "title": coalesce(title[_key == $locale][0].value, title[_key == "tr"][0].value),
+            "description": coalesce(description[_key == $locale][0].value, description[_key == "tr"][0].value),
+            "products": null
+          },
+          null
+        )
+      },
+      null
+    ),
+  }
+}[0]`;

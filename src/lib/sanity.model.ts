@@ -1,4 +1,4 @@
-import type { GetEntryBySlugAndLocaleResult } from '$lib/sanity.types';
+import type { GetEntryBySlugAndLocaleResult, GetServicesQueryResult } from '$lib/sanity.types';
 
 export type IRichTextPage = Extract<
 	NonNullable<GetEntryBySlugAndLocaleResult>,
@@ -31,3 +31,14 @@ export type IProductPage = Extract<
 >;
 
 export type IProductListPage = IServicesPage | IProductCategoryPage | IProductSubCategoryPage;
+
+type ISidebarProductsItem = NonNullable<NonNullable<GetServicesQueryResult>['products']>[number];
+export type ISidebarProductCategory = Extract<
+	ISidebarProductsItem,
+	{ _type: 'productCategoriesPage' }
+>;
+export type ISidebarProduct = Extract<ISidebarProductsItem, { _type: 'productPage' }>;
+export type ISidebarProductSubCategory = Extract<
+	ISidebarProductsItem,
+	{ _type: 'productSubcategoriesPage' }
+>;

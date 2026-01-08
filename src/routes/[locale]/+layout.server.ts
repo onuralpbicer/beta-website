@@ -5,12 +5,14 @@ import {
 	getEntryBySlugAndLocale,
 	getFooterQuery,
 	getHomePageUrl,
+	getServicesQuery,
 	headerInfoQuery,
 	sanityClient,
 	sluggableContentTypesQuery,
 } from '$lib/sanity.client';
 import type {
 	GetEntryBySlugAndLocaleResult,
+	GetServicesQueryResult,
 	SluggableContentTypesQueryResult,
 } from '$lib/sanity.types';
 
@@ -57,6 +59,17 @@ export const load: LayoutServerLoad = async ({ params }) => {
 		}));
 	}
 
+	let services: GetServicesQueryResult = null;
+	if (
+		['servicesPage', 'productCategoriesPage', 'productSubcategoriesPage'].includes(
+			entry?._type ?? '',
+		)
+	) {
+		services = await sanityClient.fetch(getServicesQuery, {
+			locale: params.locale,
+		});
+	}
+
 	return {
 		header: await sanityClient.fetch(headerInfoQuery, {
 			locale: params.locale,
@@ -66,5 +79,6 @@ export const load: LayoutServerLoad = async ({ params }) => {
 		}),
 		alternateTranslations,
 		entry,
+		services,
 	};
 };

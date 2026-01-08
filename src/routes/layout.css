@@ -30,7 +30,7 @@
     --chart-3: oklch(0.398 0.07 227.392);
     --chart-4: oklch(0.828 0.189 84.429);
     --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(0.984 0.003 247.858);
+    --sidebar: oklch(0.752 0.152 231.351);
     --sidebar-foreground: oklch(0.129 0.042 264.695);
     --sidebar-primary: oklch(0.531 0.136 245.735);
     --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
@@ -108,4 +108,18 @@
         "img contact"
         "features features";
     }
+
+    .sidebar-base {
+        @apply px-2 py-1 m-2 flex items-center gap-2;
+    }
+
+    .sidebar-container {
+        @apply border-gray-200;
+    }
+
+    /*.sidebar-category {*/
+    /*    @apply bg-primary text-primary-foreground hover:brightness-110;*/
+    /*}*/
+    /*.sidebar-product {*/
+    /*}*/
 }

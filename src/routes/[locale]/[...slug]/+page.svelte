@@ -13,8 +13,8 @@
         <HomePage home={data.entry} locale={params.locale}/>
     {:else if (data.entry._type === 'richTextPage') }
         <RichTextPage richText={data.entry}/>
-    {:else if (data.entry._type === 'servicesPage' || data.entry._type === 'productCategoriesPage' || data.entry._type === 'productSubcategoriesPage') }
-        <ProductListPage services={data.entry} locale={params.locale}/>
+    {:else if ((data.entry._type === 'servicesPage' || data.entry._type === 'productCategoriesPage' || data.entry._type === 'productSubcategoriesPage') && data.services) }
+        <ProductListPage entry={data.entry} services={data.services} locale={params.locale}/>
     {:else if (data.entry._type === 'productPage')}
         <ProductPage product={data.entry} locale={params.locale}/>
     {:else}
