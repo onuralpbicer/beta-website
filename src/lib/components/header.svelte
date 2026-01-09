@@ -15,7 +15,7 @@
     const translation = $derived(() => translations.find((l) => l.code !== locale)!)
 </script>
 
-<header class="h-16 md:h-18 p-4 flex items-center border-primary-500 border-b">
+<header class="h-16 md:h-18 p-4 flex items-center border-primary-500 border-b z-50 sticky top-0 bg-(--background)">
     <a href='/{locale}'>
         <img alt="logo" class="max-h-16 md:max-h-18" src="{header?.logo?.asset?.url}"/>
     </a>

@@ -10,7 +10,7 @@
 ## Todo (optional)
 
 * breadcrumbs
-* sticky header
+* ~~sticky header~~
 
 ## Developing
 
