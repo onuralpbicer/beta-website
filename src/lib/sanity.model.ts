@@ -25,4 +25,9 @@ export type IProductSubCategoryPage = Extract<
 	{ _type: 'productSubcategoriesPage' }
 >;
 
+export type IProductPage = Extract<
+	NonNullable<GetEntryBySlugAndLocaleResult>,
+	{ _type: 'productPage' }
+>;
+
 export type IProductListPage = IServicesPage | IProductCategoryPage | IProductSubCategoryPage;
