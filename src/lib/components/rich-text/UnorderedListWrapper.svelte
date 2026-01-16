@@ -8,8 +8,6 @@
     }
 
     let {portableText, children}: Props = $props()
-
-    console.log(portableText)
 </script>
 
 <ul class="list-disc">
