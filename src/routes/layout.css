@@ -98,4 +98,14 @@
     .heading-5 {
         @apply font-bold tracking-tight;
     }
+
+    .product-details {
+        grid-template-columns: 2fr 3fr;
+        grid-template-areas:
+        "img desc"
+        "img details"
+        "img cost"
+        "img contact"
+        "features features";
+    }
 }
