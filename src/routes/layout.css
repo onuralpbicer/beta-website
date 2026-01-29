@@ -34,8 +34,8 @@
     --sidebar-foreground: oklch(0.129 0.042 264.695);
     --sidebar-primary: oklch(0.531 0.136 245.735);
     --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-    --sidebar-accent: oklch(0.91 0.041 256.242);
-    --sidebar-accent-foreground: oklch(0.531 0.136 245.735);
+    --sidebar-accent: oklch(0.966 0.006 255.475);
+    --sidebar-accent-foreground: oklch(0.407 0.097 242.339);
     --sidebar-border: oklch(0.929 0.013 255.508);
     --sidebar-ring: oklch(0.704 0.04 256.788);
 }
@@ -110,16 +110,14 @@
     }
 
     .sidebar-base {
-        @apply px-2 py-1 m-2 flex items-center gap-2;
+        @apply px-2 py-1 m-2 flex items-center gap-2 transition-colors;
+
+        &:hover {
+            @apply bg-input border-l-sidebar-ring border-l-4;
+        }
     }
 
-    .sidebar-container {
-        @apply border-gray-200;
+    .sidebar-selected {
+        @apply bg-[#d7e4f5] border-l-accent-foreground border-l-4;
     }
-
-    /*.sidebar-category {*/
-    /*    @apply bg-primary text-primary-foreground hover:brightness-110;*/
-    /*}*/
-    /*.sidebar-product {*/
-    /*}*/
 }
