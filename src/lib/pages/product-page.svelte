@@ -1,11 +1,20 @@
 <script lang="ts">
     import type {IProductListPage, IProductPage} from "$lib/sanity.model";
     import {translate} from "$lib/i18n";
+    import type {GetServicesQueryResult} from "$lib/sanity.types";
+    import Sidebar from "$lib/components/sidebar.svelte";
 
-    let {product, locale}: { product: IProductPage, locale: string } = $props();
-
-    console.log(product)
+    let {product, locale, services}: {
+        product: IProductPage,
+        locale: string ,
+        services: GetServicesQueryResult,
+    } = $props();
 </script>
+
+
+<div class="flex h-full">
+    <Sidebar locale={locale} services={services}/>
+    <div>
 
 <section class="mx-auto w-full md:max-w-[70vw] md:min-w-175 px-8 my-4">
     <h1 class="heading-1 mb-2">{product.title}</h1>
@@ -63,6 +72,8 @@
     </div>
 
 </section>
+</div>
+</div>
 
 <style>
     ul {

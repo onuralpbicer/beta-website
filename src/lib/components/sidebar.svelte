@@ -1,6 +1,5 @@
 <script lang="ts">
 
-    import type {IProductListPage} from "$lib/sanity.model";
     import type {GetServicesQueryResult} from "$lib/sanity.types";
     import Product from "$lib/components/sidebar/product.svelte";
     import ProductSubCategory from "$lib/components/sidebar/product-subcategory.svelte";
@@ -10,8 +9,6 @@
         services: GetServicesQueryResult,
         locale: string
     } = $props();
-
-    console.log(services)
 </script>
 
 <aside class="not-lg:hidden w-[25vw] max-w-75 xl:max-w-100 bg-sidebar-accent text-sidebar-accent-foreground shadow-xl border-r-2 border-gray-100">

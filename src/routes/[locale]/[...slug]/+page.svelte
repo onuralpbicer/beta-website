@@ -16,7 +16,7 @@
     {:else if ((data.entry._type === 'servicesPage' || data.entry._type === 'productCategoriesPage' || data.entry._type === 'productSubcategoriesPage') && data.services) }
         <ProductListPage entry={data.entry} services={data.services} locale={params.locale}/>
     {:else if (data.entry._type === 'productPage')}
-        <ProductPage product={data.entry} locale={params.locale}/>
+        <ProductPage product={data.entry} locale={params.locale} services={data.services}/>
     {:else}
         {data.entry._type}
     {/if}

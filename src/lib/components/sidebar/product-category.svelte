@@ -19,7 +19,7 @@
 </script>
 
 
-<a class="sidebar-base {isSelected() ? 'sidebar-selected' : ''}" href='/{locale}/{category.slug}'>
+<a class="sidebar-base {isSelected() ? 'sidebar-selected' : ''}" href={href()}>
     <FolderIcon class="stroke-accent-foreground fill-accent-foreground" />
     <span class="grow text-ellipsis overflow-hidden">
         {category.title}

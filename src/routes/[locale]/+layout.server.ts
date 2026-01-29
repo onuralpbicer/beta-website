@@ -61,7 +61,7 @@ export const load: LayoutServerLoad = async ({ params }) => {
 
 	let services: GetServicesQueryResult = null;
 	if (
-		['servicesPage', 'productCategoriesPage', 'productSubcategoriesPage'].includes(
+		['servicesPage', 'productCategoriesPage', 'productSubcategoriesPage', 'productPage'].includes(
 			entry?._type ?? '',
 		)
 	) {
