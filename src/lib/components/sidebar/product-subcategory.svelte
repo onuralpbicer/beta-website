@@ -19,7 +19,7 @@
 
 <a style="padding-left: calc(calc(1rem * {depth}) + 4px)" class="sidebar-base {isSelected() ? 'sidebar-selected' : ''}" href={href()}>
     <FolderIcon class="stroke-accent-foreground fill-accent-foreground" />
-    <span class="grow text-ellipsis overflow-hidden">{subcategory.title}</span>
+    <span class="grow text-ellipsis overflow-hidden">{subcategory.title} ({subcategory.products?.length})</span>
 
     <ChevronUpIcon/>
 </a>
