@@ -1,12 +1,13 @@
 <script lang="ts">
-    import type {IProductListPage, IProductPage} from "$lib/sanity.model";
+    import type {IProductPage} from "$lib/sanity.model";
     import {translate} from "$lib/i18n";
     import type {GetServicesQueryResult} from "$lib/sanity.types";
     import Sidebar from "$lib/components/sidebar.svelte";
+    import RelatedProduct from "\$lib/components/related-product.svelte";
 
     let {product, locale, services}: {
         product: IProductPage,
-        locale: string ,
+        locale: string,
         services: GetServicesQueryResult,
     } = $props();
 </script>
@@ -60,14 +61,7 @@
 
     <div class="flex justify-around items-center flex-wrap gap-4">
         {#each product.page.relatedProducts as related}
-            <a class="basis-[calc(50%-20px)]" href="/{locale}/{related.slug}">
-                <img class="w-full rounded-md" src={related.image} alt="{related.title} product photo"/>
-                <hr class="my-2"/>
-                <h3 class="text-center">
-                    {related.title}
-                </h3>
-                <p class="text-center">{related.price} {related.currency}</p>
-            </a>
+            <RelatedProduct product={related} />
         {/each}
     </div>
 
