@@ -12,7 +12,7 @@
 </script>
 
 
-<div class="flex h-full">
+<div class="lg:flex h-full">
     <Sidebar locale={locale} services={services}/>
     <div>
 
