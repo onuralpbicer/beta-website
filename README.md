@@ -2,11 +2,11 @@
 
 * opengraph and meta integration
 * ~~basic i18n for hardcoded strings~~
-* product page (in progress)
+* ~~product page (in progress)~~
 * Handle empty product list page
 * clean up rich text pages
-* clean up product list pages in bigger screens
-    * Add sidebar for lg+ screens with all categories/subcategories/products? maybe
+* ~~clean up product list pages in bigger screens~~
+    * ~~Add sidebar for lg+ screens with all categories/subcategories/products? maybe~~
 
 ## Todo (optional)
 
