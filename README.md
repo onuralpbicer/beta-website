@@ -1,6 +1,7 @@
 ## Todo
 
 * opengraph and meta integration
+* product page "parent" page
 * ~~basic i18n for hardcoded strings~~
 * ~~product page (in progress)~~
 ~~* Handle empty product list page~~
