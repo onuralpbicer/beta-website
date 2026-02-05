@@ -1,6 +1,6 @@
 ## Todo
 
-* opengraph and meta integration
+* ~~opengraph and meta integration~~ Sort of done, I didn't do images
 * product page "parent" page
 * ~~basic i18n for hardcoded strings~~
 * ~~product page (in progress)~~
