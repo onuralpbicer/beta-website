@@ -31,8 +31,7 @@
         <meta property="og:title" content={data.entry.title} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={canonicalUrl()} />
-<!--        todo, maybe implement on actual page level -->
-<!--        <meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" /> -->
+        <meta property="og:image" content='{page.url.origin}/og_logo.png' />
         <meta property="og:description" content={data.entry.metaDescription} />
         <meta property="og:locale" content={params.locale} />
 
