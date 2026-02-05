@@ -63,6 +63,9 @@
         {/each}
 
         <div class="mt-4 lg:grid grid-cols-2 gap-2 lg:gap-4 xl:gap-8">
+            {#if filtered.length === 0}
+                <p>{translate(locale, 'noProductsFound')}</p>
+            {/if}
             {#each filtered as productOrCategory}
                 {@const itemsCount = productOrCategory.products?.length ?? 0}
                 {#if productOrCategory._type === 'productCategoriesPage' }

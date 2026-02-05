@@ -13,6 +13,7 @@ const translations = {
 		download: 'Download brochure',
 		contact: 'Contact Us!',
 		related: 'Related Products',
+		noProductsFound: 'Could not find any products or categories',
 	},
 	tr: {
 		item: 'Ürün',
@@ -28,6 +29,7 @@ const translations = {
 		download: 'Doküman indirin',
 		contact: 'Bize Ulaşın!',
 		related: 'İlgili diğer ürünler',
+		noProductsFound: 'Ürün veya kategori bulamadık',
 	},
 } satisfies Record<string, Record<string, string>>;
 
