@@ -21,6 +21,7 @@ export async function getHomePageUrl(locale: string) {
 
 export const headerInfoQuery = groq`*[_type == "appHeader"][0]{
   logo{ asset->{ url } },
+  opengraph_logo{ asset->{ url } },
   headerLinks[]->{
     _type,
     "title": title[_key == $locale][0].value,

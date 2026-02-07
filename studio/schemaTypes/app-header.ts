@@ -18,6 +18,12 @@ export default defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: 'opengraph_logo',
+      type: 'image',
+      options: {hotspot: true},
+      validation: (r) => r.required(),
+    }),
+    defineField({
       name: 'headerLinks',
       type: 'array',
       of: [

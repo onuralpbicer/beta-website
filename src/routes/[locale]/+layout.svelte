@@ -28,15 +28,15 @@
         <meta name="description" content={data.entry.metaDescription}/>
         <title>Beta Mühendislik - {data.entry.title}</title>
 
-        <meta property="og:title" content={data.entry.title} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={canonicalUrl()} />
-        <meta property="og:image" content='{page.url.origin}/og_logo.png' />
-        <meta property="og:description" content={data.entry.metaDescription} />
-        <meta property="og:locale" content={params.locale} />
+        <meta property="og:title" content={data.entry.title}/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content={canonicalUrl()}/>
+        <meta property="og:image" content={data.header.opengraph_logo?.asset?.url}/>
+        <meta property="og:description" content={data.entry.metaDescription}/>
+        <meta property="og:locale" content={params.locale}/>
 
         {#each data.alternateTranslations as translation}
-            <meta property="og:locale:alternate" content={translation.code} />
+            <meta property="og:locale:alternate" content={translation.code}/>
         {/each}
 
     {/if}
