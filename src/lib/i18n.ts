@@ -14,6 +14,7 @@ const translations = {
 		contact: 'Contact Us!',
 		related: 'Related Products',
 		noProductsFound: 'Could not find any products or categories',
+		goToCategory: 'Go to category',
 	},
 	tr: {
 		item: 'Ürün',
@@ -30,6 +31,7 @@ const translations = {
 		contact: 'Bize Ulaşın!',
 		related: 'İlgili diğer ürünler',
 		noProductsFound: 'Ürün veya kategori bulamadık',
+		goToCategory: 'Kategoriye gidin',
 	},
 } satisfies Record<string, Record<string, string>>;
 

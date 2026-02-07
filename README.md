@@ -1,14 +1,14 @@
 ## Todo
 
 * ~~opengraph and meta integration~~ Sort of done, I didn't do images
-* product page "parent" page
+* ~~product page "parent" page~~
 * ~~basic i18n for hardcoded strings~~
 * ~~product page (in progress)~~
   ~~* Handle empty product list page~~
 * clean up rich text pages
 * ~~clean up product list pages in bigger screens~~
     * ~~Add sidebar for lg+ screens with all categories/subcategories/products? maybe~~
-* Webhook for deploying prod version on content updates
+* ~Webhook for deploying prod version on content updates
 
 ## Todo (optional)
 

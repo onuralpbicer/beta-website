@@ -192,7 +192,8 @@ export const getEntryBySlugAndLocale = groq`*[
 						defined(image) => image.asset->url,
 						null
 					),
-			}
+			},
+			"parent": coalesce(parent->slug[_key == $locale][0].value, parent->slug[_key == "tr"][0].value)
 		},
 
     // default
