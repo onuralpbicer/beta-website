@@ -18,10 +18,10 @@
   ],
   "dependencies": {
     "@sanity/locale-tr-tr": "^1.2.28",
-    "@sanity/vision": "^5.8.0",
+    "@sanity/vision": "^5.8.1",
     "react": "^19.1",
     "react-dom": "^19.1",
-    "sanity": "^5.8.0",
+    "sanity": "^5.8.1",
     "sanity-plugin-internationalized-array": "^3.2.2",
     "styled-components": "^6.1.18"
   },
