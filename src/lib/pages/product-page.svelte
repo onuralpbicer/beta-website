@@ -45,13 +45,13 @@
                     <hr class="my-2"/>
                     <div class="grid gap-2" style="grid-template-columns: 1fr 1fr;">
                         {#if (product.page.parent)}
-                            <a class="text-secondary-foreground" href="/{locale}/{product.page.parent}">
+                            <a class="text-secondary-foreground text-nowrap" href="/{locale}/{product.page.parent}">
                                 {translate(locale, 'goToCategory')}
                             </a>
                         {/if}
 
                         {#if (product.page.document && product.page.document.url)}
-                            <a style="grid-column-start: -1;" class="text-secondary-foreground"
+                            <a style="grid-column-start: -1;" class="text-secondary-foreground text-nowrap"
                                href="{product.page.document.url}?dl=">
                                 {translate(locale, 'download')}
                             </a>
