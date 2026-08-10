@@ -17,9 +17,32 @@
         )
     )))
 
-    let selectedTags = $state<Array<string>>(tags());
+    let selectedTags = $state<Array<string>>([]);
 
     const allSelected = $derived(selectedTags.length === tags().length)
+
+    $effect(() => {
+        const availableTags = tags()
+        if (availableTags.length === 0) {
+            if (selectedTags.length !== 0) {
+                selectedTags = []
+            }
+            return
+        }
+
+        const nextSelectedTags = selectedTags.filter((tag) => availableTags.includes(tag))
+
+        if (nextSelectedTags.length > 0) {
+            if (nextSelectedTags.length !== selectedTags.length) {
+                selectedTags = nextSelectedTags
+            }
+            return
+        }
+
+        if (availableTags.length > 0 && selectedTags.length !== availableTags.length) {
+            selectedTags = availableTags
+        }
+    })
 
     function selectAll() {
         selectedTags = tags()
